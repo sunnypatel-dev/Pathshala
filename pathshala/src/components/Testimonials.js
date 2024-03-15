@@ -73,11 +73,11 @@ const Testimonials = () => {
               </linearGradient>
             </defs>
           </svg>
-          <h1 className="text-3xl font-bold">
+          <h1 className="text-2xl sm:text-3xl font-bold">
             Our students, making us proud everyday!
           </h1>
         </div>
-        <p className="text-[#343434d3] font-medium pt-4 pb-7 px-2">
+        <p className="text-[#343434d3] font-medium pt-4 pb-7 sm:px-2">
           Let our success stories do the talking
         </p>
         <Carousel className="relative inset-0 after:absolute after:inline-block after:content-'' after:w-0 sm:after:w-28 lg:after:w-72 after:z-50 after:h-full  after:bg-gradient-to-l after:from-[#ffffff] after:to-transparent flex flex-row-reverse">

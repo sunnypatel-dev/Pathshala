@@ -38,23 +38,99 @@ const Educators = () => {
                 </linearGradient>
               </defs>
             </svg>
-            <h1 className="text-3xl font-bold">
+            <h1 className="text-2xl sm:text-3xl font-bold">
               Meet your super-skilled educators
             </h1>
           </div>
-          <p className="text-[#343434d3] font-medium pt-3 pb-6 px-2">
+          <p className="text-[#343434d3] font-medium pt-3 pb-6 sm:px-2">
             Our top-notch instructors have years of experience from companies
             such as Google, IBM, and McKinsey, and more.
           </p>
 
-          <Carousel>
-            <CarouselContent>
-              <CarouselItem>...</CarouselItem>
-              <CarouselItem>...</CarouselItem>
-              <CarouselItem>...</CarouselItem>
+          <Carousel className="">
+            <CarouselContent className="px-4 sm:px-10 flex flex-row gap-6 py-2">
+              <CarouselItem className="basis-1/1 sm:basis-1/2 md:basis-1/3 h-fit lg:basis-1/4 px-0 border rounded-xl shadow-md overflow-hidden">
+                <img
+                  className="w-full h-[230px] object-cover object-top"
+                  src="/edu1.png"
+                  alt="edu"
+                />
+                <div className=" py-3 flex flex-col gap-1 px-3">
+                  <h3 className="text-lg font-semibold">
+                    Anuj Kalbalia (Ex-IBM)
+                  </h3>
+                  <p className="text-[1.1rem] font-medium">
+                    Educator, Web Development
+                  </p>
+                  <ul className="list-disc text-[#2c2c2ce0] text-sm flex flex-col gap-1 px-4">
+                    <li>Ex-CodeChef, Internshala</li>
+                    <li>NIT Durgapur alumnus</li>
+                  </ul>
+                </div>
+              </CarouselItem>
+
+              <CarouselItem className="basis-1/1 sm:basis-1/2 md:basis-1/3 h-fit lg:basis-1/4 px-0 border rounded-xl shadow-md overflow-hidden">
+                <img
+                  className="w-full h-[230px] object-cover object-top"
+                  src="/edu1.png"
+                  alt="edu"
+                />
+                <div className=" py-3 flex flex-col gap-1 px-3">
+                  <h3 className="text-lg font-semibold">
+                    Anuj Kalbalia (Ex-IBM)
+                  </h3>
+                  <p className="text-[1.1rem] font-medium">
+                    Educator, Web Development
+                  </p>
+                  <ul className="list-disc text-[#2c2c2ce0] text-sm flex flex-col gap-1 px-4">
+                    <li>Ex-CodeChef, Internshala</li>
+                    <li>NIT Durgapur alumnus</li>
+                  </ul>
+                </div>
+              </CarouselItem>
+
+              <CarouselItem className="basis-1/1 sm:basis-1/2 md:basis-1/3 h-fit lg:basis-1/4 px-0 border rounded-xl shadow-md overflow-hidden">
+                <img
+                  className="w-full h-[230px] object-cover object-top"
+                  src="/edu1.png"
+                  alt="edu"
+                />
+                <div className=" py-3 flex flex-col gap-1 px-3">
+                  <h3 className="text-lg font-semibold">
+                    Anuj Kalbalia (Ex-IBM)
+                  </h3>
+                  <p className="text-[1.1rem] font-medium">
+                    Educator, Web Development
+                  </p>
+                  <ul className="list-disc text-[#2c2c2ce0] text-sm flex flex-col gap-1 px-4">
+                    <li>Ex-CodeChef, Internshala</li>
+                    <li>NIT Durgapur alumnus</li>
+                  </ul>
+                </div>
+              </CarouselItem>
+
+              <CarouselItem className="basis-1/1 sm:basis-1/2 md:basis-1/3 h-fit lg:basis-1/4 px-0 border rounded-xl shadow-md overflow-hidden">
+                <img
+                  className="w-full h-[230px] object-cover object-top"
+                  src="/edu1.png"
+                  alt="edu"
+                />
+                <div className=" py-3 flex flex-col gap-1 px-3">
+                  <h3 className="text-lg font-semibold">
+                    Anuj Kalbalia (Ex-IBM)
+                  </h3>
+                  <p className="text-[1.1rem] font-medium">
+                    Educator, Web Development
+                  </p>
+                  <ul className="list-disc text-[#2c2c2ce0] text-sm flex flex-col gap-1 px-4">
+                    <li>Ex-CodeChef, Internshala</li>
+                    <li>NIT Durgapur alumnus</li>
+                  </ul>
+                </div>
+              </CarouselItem>
             </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
+            <CarouselPrevious className="hidden xl:flex" />
+            <CarouselNext className="hidden xl:flex" />
           </Carousel>
         </div>
       </section>
