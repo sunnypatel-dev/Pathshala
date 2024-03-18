@@ -13,9 +13,12 @@ const Hero = () => {
           <p className="text-lg sm:text-xl text-[#303030]">
             Learn, Practice, and get hired!
           </p>
-          <button className="bg-[#9168f9] rounded text-lg sm:text-xl w-fit hover:bg-[#6E4DFE] text-white px-4 py-2">
+          <a
+            href="#categories"
+            className="bg-[#9168f9] rounded text-lg sm:text-xl w-fit hover:bg-[#6E4DFE] text-white px-4 py-2"
+          >
             Explore Now!
-          </button>
+          </a>
         </div>
         <Image
           src="/student.png"
@@ -30,8 +33,8 @@ const Hero = () => {
         <p className="text-[1.7rem] text-[#303030] font-semibold">
           Top companies hiring from us
         </p>
-        <div class="slider">
-          <div class="slide-track">
+        <div className="slider">
+          <div className="slide-track">
             <div className="slide">
               <Image src="/hcl.png.webp" width={170} height={160} alt="" />
             </div>

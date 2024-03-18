@@ -63,6 +63,7 @@ const Banner = () => {
             </li>
           </ul>
           <Image
+            id="categories"
             src="/banner.png"
             className="md:w-full md:h-[180px] h-[90px] sm:h-[100px] mt-4 rounded-xl  object-cover object-left"
             width={1500}

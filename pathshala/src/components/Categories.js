@@ -1,40 +1,20 @@
 "use client";
+import axios from "axios";
+import dynamic from "next/dynamic";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useEffect, useMemo, useState } from "react";
+import { useSelector } from "react-redux";
 
 const Categories = () => {
-  const items = [
-    {
-      id: 1,
-      category: "Programming",
-      name: "Web Development",
-      image: "/web-development.png.webp",
-    },
-    {
-      id: 2,
-      category: "Programming",
-      name: "Programming with Python",
-      image: "/python.png.webp",
-    },
-    {
-      id: 3,
-      category: "Business & Management",
-      name: "Digital Marketing",
-      image: "/digital-marketing.png.webp",
-    },
-    {
-      id: 4,
-      category: "Core Engineering",
-      name: "AutoCad",
-      image: "/autocad.png.webp",
-    },
-    {
-      id: 5,
-      category: "Programming",
-      name: "Android App Development",
-      image: "/android.png.webp",
-    },
+  const { courses } = useSelector((state) => state.courses);
+
+  const allCourses = courses;
+
+  const uniqueCategories = [
+    ...new Set(allCourses?.map((item) => item.category)),
   ];
+
   const [selectedFilter, setSelectedFilter] = useState("All Courses");
 
   const handleFilter = (event) => {
@@ -44,11 +24,11 @@ const Categories = () => {
 
   const filteredItems = useMemo(() => {
     if (selectedFilter === "All Courses") {
-      return items;
+      return allCourses;
     } else {
-      return items.filter((item) => item.category === selectedFilter);
+      return allCourses.filter((item) => item.category === selectedFilter);
     }
-  }, [selectedFilter, items]);
+  }, [selectedFilter, allCourses]);
 
   return (
     <section className="pb-20">
@@ -63,9 +43,11 @@ const Categories = () => {
           className="block xl:hidden bg-[#a07bff] text-white rounded w-52 px-3 py-2 outline-none border-none my-10"
         >
           <option value="All Courses">All Courses</option>
-          <option value="Programming">Programming</option>
-          <option value="Business & Management">Business & Management</option>
-          <option value="Core Engineering">Core Engineering</option>
+          {uniqueCategories.map((category, index) => (
+            <option value={category} key={index}>
+              {category}
+            </option>
+          ))}
         </select>
 
         <ul className="hidden xl:flex gap-4 py-6">
@@ -79,50 +61,34 @@ const Categories = () => {
           >
             All Courses
           </li>
-          <li
-            onClick={handleFilter}
-            className={`rounded-md py-2 px-2 cursor-pointer ${
-              selectedFilter === "Programming"
-                ? "bg-[#35a3e3] text-white"
-                : "bg-[#F3F8FF] text-black"
-            }`}
-          >
-            Programming
-          </li>
-          <li
-            onClick={handleFilter}
-            className={` rounded-md py-2 px-2 cursor-pointer ${
-              selectedFilter === "Business & Management"
-                ? "bg-[#35a3e3] text-white"
-                : "bg-[#F3F8FF] text-black"
-            }`}
-          >
-            Business & Management
-          </li>
-          <li
-            onClick={handleFilter}
-            className={` rounded-md py-2 px-2 cursor-pointer ${
-              selectedFilter === "Core Engineering"
-                ? "bg-[#35a3e3] text-white"
-                : "bg-[#F3F8FF] text-black"
-            }`}
-          >
-            Core Engineering
-          </li>
+
+          {uniqueCategories.map((category, index) => (
+            <li
+              key={index}
+              onClick={handleFilter}
+              className={`rounded-md py-2 px-2 cursor-pointer ${
+                selectedFilter === category
+                  ? "bg-[#35a3e3] text-white"
+                  : "bg-[#F3F8FF] text-black"
+              }`}
+            >
+              {category}
+            </li>
+          ))}
         </ul>
         <div className="flex gap-10 flex-wrap ">
-          {filteredItems.map((item) => (
-            <a key={item.id} href={item.link}>
+          {filteredItems?.map((item) => (
+            <Link key={item._id} href={`/categories/${item._id}`}>
               <div className="bg-white rounded-xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
                 <img
                   className="w-[300px] h-[130px] object-cover"
-                  src={item.image}
+                  src={item.img1}
                   alt={item.category}
                 />
                 <div className="px-4 pt-2 pb-6">
                   <div className="flex items-center gap-2 py-1">
                     <h4 className="text-[13px] text-[#4c4c4c] font-medium">
-                      8 weeks{" "}
+                      {item.duration}
                     </h4>
                     <Image
                       height={10}
@@ -163,7 +129,7 @@ const Categories = () => {
                   Know more {">"}
                 </button>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
       </div>
@@ -171,4 +137,4 @@ const Categories = () => {
   );
 };
 
-export default Categories;
+export default dynamic(() => Promise.resolve(Categories), { ssr: false });

@@ -1,7 +1,6 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-// import "./styles/styles.scss";
-import Navbar from "@/components/Navbar";
+import { ReduxProvider } from "@/redux/provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,8 +16,7 @@ export default function RootLayout({ children }) {
         <title>Pathshala | Online Learning Platform</title>
       </head>
       <body className={inter.className}>
-        <Navbar />
-        {children}
+        <ReduxProvider>{children}</ReduxProvider>
       </body>
     </html>
   );
