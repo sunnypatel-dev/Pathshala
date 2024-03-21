@@ -1,7 +1,13 @@
 "use client";
 import Navbar from "@/components/Navbar";
-import { logOut, signInSuccess } from "@/redux/user/userSlice";
+import {
+  logOut,
+  signInFailure,
+  signInStart,
+  signInSuccess,
+} from "@/redux/user/userSlice";
 import axios from "axios";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -10,7 +16,7 @@ import { useDispatch } from "react-redux";
 const page = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const { currentUser } = useSelector((state) => state.user);
+  const { loading } = useSelector((state) => state.user);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -31,6 +37,8 @@ const page = () => {
     e.preventDefault();
     const signIn = async () => {
       try {
+        dispatch(signInStart());
+
         const response = await axios.post(
           "http://localhost:3000/api/login",
           formData
@@ -42,6 +50,7 @@ const page = () => {
         router.push("/dashboard");
       } catch (err) {
         console.log(err.response.data);
+        dispatch(signInFailure());
       }
     };
 
@@ -51,7 +60,7 @@ const page = () => {
   return (
     <>
       <Navbar />
-      <section className="py-28 grid place-content-center">
+      <section className="py-20 lg:py-28 grid place-content-center px-5">
         <div className="bg-white max-w-[370px] mt-10 lg:mt-0 h-fit p-5 rounded-lg border">
           <h2 className="text-lg font-semibold pb-3">Login to your account</h2>
           <div className="flex items-center py-2 font-medium text-[#4c4c4c]  px-1 rounded-sm gap-1 justify-center border text-[0.9rem]">
@@ -79,6 +88,7 @@ const page = () => {
                   placeholder="john@gmail.com"
                   value={formData.email}
                   onChange={handleChange}
+                  required
                 />
               </div>
               <div className="flex flex-col ">
@@ -93,17 +103,93 @@ const page = () => {
                   value={formData.password}
                   onChange={handleChange}
                   placeholder="Must be at least 6 characters"
+                  required
                 />
               </div>
               <a className="text-right text-sm font-semibold text-[#4195c5]">
                 Forgot password?
               </a>
-              <button
-                className="bg-[#00A5EC] py-2 rounded-sm text-white"
-                type="submit"
-              >
-                Enroll Now
-              </button>
+              {loading ? (
+                <button
+                  disabled
+                  className="bg-[#00a5ece7] flex items-center gap-2 justify-center py-2 rounded-sm text-white "
+                  type="submit"
+                >
+                  {" "}
+                  Login Now
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    id="loading"
+                    className="w-6 h-6 animate-spin "
+                  >
+                    <circle
+                      cx="17.8"
+                      cy="6.2"
+                      r="2"
+                      fill="#ffffff"
+                      fill-opacity=".9"
+                    ></circle>
+                    <circle
+                      cx="12"
+                      cy="4"
+                      r="2"
+                      fill="#ffffff"
+                      fill-opacity=".8"
+                    ></circle>
+                    <circle
+                      cx="6.2"
+                      cy="6.2"
+                      r="2"
+                      fill="#ffffff"
+                      fill-opacity=".7"
+                    ></circle>
+                    <circle
+                      cx="4"
+                      cy="12"
+                      r="2"
+                      fill="#ffffff"
+                      fill-opacity=".6"
+                    ></circle>
+                    <circle
+                      cx="6.2"
+                      cy="17.6"
+                      r="2"
+                      fill="#ffffff"
+                      fill-opacity=".5"
+                    ></circle>
+                    <circle
+                      cx="12"
+                      cy="20"
+                      r="2"
+                      fill="#ffffff"
+                      fill-opacity=".4"
+                    ></circle>
+                    <circle
+                      cx="17.8"
+                      cy="17.6"
+                      r="2"
+                      fill="#ffffff"
+                      fill-opacity=".3"
+                    ></circle>
+                    <circle
+                      cx="20"
+                      cy="12"
+                      r="2"
+                      fill="#ffffff"
+                      fill-opacity=".2"
+                    ></circle>
+                  </svg>
+                </button>
+              ) : (
+                <button
+                  className="bg-[#00A5EC] hover:bg-[#008fcc] py-2 rounded-sm text-white "
+                  type="submit"
+                >
+                  Login Now
+                </button>
+              )}
               <p className="text-sm text-[#222]">
                 Not registered yet? Select the skill that you want to learn and
                 sign up.{" "}
@@ -119,4 +205,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default dynamic(() => Promise.resolve(page), { ssr: false });

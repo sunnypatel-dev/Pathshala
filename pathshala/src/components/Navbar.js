@@ -13,7 +13,7 @@ const Navbar = () => {
   const router = useRouter();
 
   const [pathScreen, setPathScreen] = useState(false);
-  const [openSidebar, setOpenSidebar] = useState(false);
+  const [openSidebar, setOpenSidebar] = useState(true);
 
   const pathname = usePathname();
 
@@ -38,8 +38,8 @@ const Navbar = () => {
     try {
       await axios.get("http://localhost:3000/api/logout");
 
-      dispatch(logOut());
       router.push("/login");
+      dispatch(logOut());
     } catch (error) {
       console.log(error.message);
     }
@@ -65,8 +65,8 @@ const Navbar = () => {
             {pathScreen ? (
               <button
                 onClick={() => {
-                  setOpenSidebar(!openSidebar);
                   dispatch(openScreenSidebar(openSidebar));
+                  setOpenSidebar(!openSidebar);
                 }}
                 type="button"
                 class="inline-flex items-center text-sm text-gray-500 rounded-lg hover:border px-1 py-1 hover:border-gray-300  outline-none"

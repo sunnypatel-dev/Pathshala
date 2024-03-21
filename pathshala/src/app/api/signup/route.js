@@ -17,13 +17,11 @@ export async function POST(NextRequest) {
     //check if user already exist
     const user = await User.findOne({ email });
 
-    console.log(user);
-
     if (user) {
-      return NextResponse.json(
-        { error: "User already exists" },
-        { status: 400 }
-      );
+      return NextResponse.json({
+        message: "User Already Exists!",
+        status: 409,
+      });
     }
 
     // hash password
@@ -39,16 +37,17 @@ export async function POST(NextRequest) {
 
     const savedUser = await newUser.save();
 
-    // send email
-
-    // await sendEmail({email, emailType: "VERIFY", userId: savedUser._id.toString()})
-
     return NextResponse.json({
       message: "User created successfully",
       success: true,
       savedUser,
+      status: 200,
     });
   } catch (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    console.log("hi");
+    return NextResponse.json(
+      { message: "Internal Error Bro!" },
+      { status: 500 }
+    );
   }
 }

@@ -7,26 +7,45 @@ connect();
 
 export async function POST(NextRequest) {
   try {
-    console.log("getting");
     const reqBody = await NextRequest.json();
 
     const { userId, courseId } = reqBody;
 
-    const course = await Course.findById(courseId);
+    // Find user by ID
+    const user = await User.findById(userId);
 
-    if (!course) {
-      throw new Error("Course not found");
+    // is that course already exist in the 'course'(array of object) in User model
+    const isCourseExistsAlready = user.courses.some(
+      (course) => course._id.toString() === courseId
+    );
+
+    if (isCourseExistsAlready) {
+      return new NextResponse("Already Enrolled!", {
+        status: 409, // Set your desired status code
+        headers: {
+          "Content-Type": "text/plain", // Set the content type (optional)
+        },
+      });
     }
 
-    const user = await User.findByIdAndUpdate(
+    const course = await Course.findById(courseId);
+
+    const updatedUser = await User.findByIdAndUpdate(
       userId,
       { $addToSet: { courses: course } },
       { new: true }
     );
 
-    return NextResponse.json({ message: "done", user });
+    return NextResponse.json({
+      message: "Course Subscribed!",
+      user: updatedUser,
+      status: 200,
+    });
   } catch (err) {
-    console.error(err);
-    // Handle the error
+    return NextResponse.json({ message: "Internal Error" });
   }
 }
+
+// if (!course) {
+//   throw new Error("Course not found");
+// }

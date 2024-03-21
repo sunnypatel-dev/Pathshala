@@ -7,7 +7,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 
@@ -35,6 +35,38 @@ const page = ({ params }) => {
       console.log(error.message);
     }
   };
+
+  // Calculating Course Progress Here
+
+  const [courseProgress, setCourseProgress] = useState([]);
+
+  useEffect(() => {
+    // Calculate total topics and topics with progress for each course
+    const courseTopicsWithProgress = currentUser?.courses.map((course) => {
+      const totalTopics = course.syllabus.reduce((acc, chapter) => {
+        return acc + chapter.topics.length;
+      }, 0);
+
+      const topicsWithProgress = course.syllabus.reduce((acc, chapter) => {
+        return (
+          acc + chapter.topics.filter((topic) => topic.topicProgress).length
+        );
+      }, 0);
+
+      const percentageCompleted = (topicsWithProgress / totalTopics) * 100 || 0;
+
+      return {
+        courseId: course._id,
+        percentageCompleted,
+        totalTopics,
+        totalTopicCompleted: topicsWithProgress,
+      };
+    });
+
+    setCourseProgress(courseTopicsWithProgress);
+  }, [currentUser]);
+
+  const [resumeClicked, setResumeClicked] = useState(false);
 
   return (
     <>
@@ -66,9 +98,9 @@ const page = ({ params }) => {
               </Link>
             </li>
             <li>
-              <a
-                href="#"
-                class="flex items-center gap-2 p-2  text-gray-900  rounded-lg bg-[#f0f8fc] group"
+              <Link
+                href="/dashboard"
+                class="flex items-center gap-2 p-2  text-gray-900  rounded-lg bg-[#f4f9fc] hover:bg-[#ecf6fd] group"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -89,7 +121,7 @@ const page = ({ params }) => {
                   ></path>
                 </svg>
                 <span class=" text-[1rem]">Dashboard</span>
-              </a>
+              </Link>
             </li>
             <li>
               <a
@@ -138,7 +170,7 @@ const page = ({ params }) => {
             </li>
           </ul>
           <ul className="flex flex-col gap-4">
-            <li className="bg-[#f0f8fc] pb-4 flex flex-col items-center gap-2 justify-center rounded-lg">
+            <li className="bg-[#f4fafc] pb-4 flex flex-col items-center gap-2 justify-center rounded-lg">
               <img
                 className="w-24 -mt-4"
                 src="/exclusive.png"
@@ -156,11 +188,13 @@ const page = ({ params }) => {
             <li>
               <a
                 href="#"
-                class="flex items-center gap-3 p-2 bg-[#f0f8fc]  text-gray-900 rounded-lg   group"
+                class="flex items-center gap-3 p-2 bg-[#f4fafc] text-gray-900 rounded-lg   group"
               >
                 <img className="w-10" src="/user.gif" alt="user" />
 
-                <span class=" text-[1rem]">Sunny Pate...</span>
+                <span class=" text-[1rem] text-ellipsis overflow-hidden whitespace-nowrap">
+                  {currentUser?.name}
+                </span>
               </a>
             </li>
           </ul>
@@ -309,35 +343,55 @@ const page = ({ params }) => {
                 src={item.img1}
               />
               <div className="flex flex-col border px-4">
-                <div className="flex flex-col py-2">
-                  <div className="flex  items-center gap-2">
-                    <div className="w-full  h-2 rounded-full bg-teal-500"></div>
-                    <h4 className="text-sm font-semibold text-[#2a2a2a]">
-                      100%
-                    </h4>
-                  </div>
-                  <p className="text-xs font-medium text-teal-500">
-                    189 / 189 Videos Completed
-                  </p>
-                </div>
+                {courseProgress.map((course) => (
+                  <>
+                    {item._id === course.courseId && (
+                      <div className="flex flex-col py-2">
+                        <div className="flex  items-center gap-2">
+                          <div className="w-full  h-2 rounded-full border border-zinc-300">
+                            <div
+                              className="bg-teal-500 h-full rounded-full"
+                              style={{
+                                width: `${Math.floor(
+                                  course.percentageCompleted
+                                )}%`,
+                              }}
+                            ></div>
+                          </div>
+
+                          <h4 className="text-xs font-semibold text-[#2a2a2a]">
+                            {Math.floor(course.percentageCompleted)}%
+                          </h4>
+                        </div>
+
+                        <p className="text-xs font-medium text-teal-500">
+                          {course.totalTopicCompleted +
+                            "/" +
+                            course.totalTopics}{" "}
+                          Videos Completed
+                        </p>
+                      </div>
+                    )}
+                  </>
+                ))}
                 <h2 className="text-[1.14rem] font-semibold">{item.name}</h2>
-                <div className=" text-[0.68rem] flex flex-col gap-2 font-medium text-gray-800 py-2">
-                  <div className="flex gap-2">
+                <div className=" text-[0.73rem] flex flex-col gap-2 font-medium text-gray-800 py-2">
+                  <div className="flex gap-1 items-center">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke-width="1.5"
                       stroke="currentColor"
-                      class="w-3 h-3"
+                      class="w-[0.9rem] h-[0.9rem] -mt-[0.14rem]"
                     >
                       <path
                         stroke-linecap="round"
                         stroke-linejoin="round"
-                        d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
+                        d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                       />
                     </svg>
-                    Last Read: How Internet Works
+                    Duration: {item.duration}
                   </div>
                   <div className="flex gap-2 py-1 px-2 w-fit rounded-md text-[0.76rem] border border-dashed border-[#FD7289] text-[#FD7289] font-medium">
                     <svg
@@ -354,21 +408,60 @@ const page = ({ params }) => {
                         d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"
                       />
                     </svg>
-                    Enrolled On 06-07-2023
+                    Enrolled On {item.createdAt.substring(0, 10)}
                   </div>
                 </div>
                 <hr className="my-1" />
-                <a
-                  href={`dashboard/screen/${item.name + "/" + item._id}`}
-                  className="flex items-center justify-center bg-[#EAFCFF] outline-none rounded-2xl px-4 py-[0.13rem] my-2 text-[#1D98E0] font-semibold text-md"
-                >
-                  <img
-                    className="w-10"
-                    src="video_tutorials.png.webp"
-                    alt="video_tut_icon"
-                  />
-                  <span className="mt-1">Resume Course</span>
-                </a>
+                {courseProgress.map((course) => (
+                  <>
+                    {course.percentageCompleted == 100 ? (
+                      <Link
+                        href={`dashboard/screen/${item.name + "/" + item._id}`}
+                        className="flex items-center justify-center bg-[#EAFCFF] outline-none rounded-2xl px-4 py-[0.5rem] my-2 text-teal-500 font-semibold text-md"
+                      >
+                        <h3 className="">Course Completed&nbsp;</h3>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          enable-background="new 0 0 24 24"
+                          viewBox="0 0 24 24"
+                          id="check-circle"
+                          className="w-[1.2rem] h-[1.2rem]"
+                        >
+                          <path
+                            fill="currentColor"
+                            d="M12,2C6.5,2,2,6.5,2,12s4.5,10,10,10s10-4.5,10-10C22,6.5,17.5,2,12,2z M16.2,10.3l-4.8,4.8c-0.4,0.4-1,0.4-1.4,0l0,0l-2.2-2.2c-0.4-0.4-0.4-1,0-1.4c0.4-0.4,1-0.4,1.4,0c0,0,0,0,0,0l1.5,1.5l4.1-4.1c0.4-0.4,1-0.4,1.4,0C16.6,9.3,16.6,9.9,16.2,10.3z"
+                          ></path>
+                        </svg>
+                      </Link>
+                    ) : (
+                      <Link
+                        href={`dashboard/screen/${item.name + "/" + item._id}`}
+                        onClick={() => setResumeClicked(true)}
+                        className="flex items-center justify-center bg-[#EAFCFF] outline-none rounded-2xl px-4 py-[0.5rem] my-2 text-[#1D98E0] font-semibold text-md"
+                      >
+                        <h3 className="">Resume Course&nbsp;</h3>
+                        {resumeClicked ? (
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="w-5 h-5 animate-spin"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"
+                            />
+                          </svg>
+                        ) : (
+                          "->"
+                        )}
+                      </Link>
+                    )}
+                  </>
+                ))}
               </div>
             </div>
           ))}

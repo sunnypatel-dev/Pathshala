@@ -1,7 +1,6 @@
 "use client";
 import Navbar from "@/components/Navbar";
 import React, { useEffect, useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
 
 import {
   Accordion,
@@ -14,14 +13,17 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
-
-const notify = () => toast("Here is your toast.");
+import toast from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
+import { loadingState, signInSuccess } from "@/redux/user/userSlice";
+import { useDispatch } from "react-redux";
 
 const page = ({ params }) => {
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const { courses } = useSelector((state) => state.courses);
-  const { currentUser } = useSelector((state) => state.user);
+  const { currentUser, loading } = useSelector((state) => state.user);
 
   const [course, setCourse] = useState(null); // Initialize state with null
 
@@ -34,14 +36,14 @@ const page = ({ params }) => {
   }, []);
 
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    phone: "",
-    couponCode: "",
-    chooseObjective: "",
-    chooseBatch: "",
+    //   firstName: "",
+    //   lastName: "",
+    //   email: "",
+    //   password: "",
+    //   phone: "",
+    //   couponCode: "",
+    //   chooseObjective: "",
+    //   chooseBatch: "",
   });
 
   console.log(formData);
@@ -55,51 +57,64 @@ const page = ({ params }) => {
     }));
   };
 
-  // Handle signup and enroll
-  const handleSignupSubmit = (e) => {
+  const signUpAndEnroll = async (e) => {
     e.preventDefault();
-    const signUpAndEnroll = async () => {
-      try {
-        const signupResponse = await axios.post(
-          "http://localhost:3000/api/signup",
-          formData
+    dispatch(loadingState(true));
+    try {
+      const signUpResponse = await axios.post(
+        "http://localhost:3000/api/signup",
+        formData
+      );
+
+      if (signUpResponse.data.status === 200) {
+        toast.success("Signup Successful!");
+
+        const enrollResponse = await axios.post(
+          "http://localhost:3000/api/enroll_course",
+          {
+            userId: signUpResponse.data.savedUser._id,
+            courseId: params.courseId,
+          }
         );
 
-        if (signupResponse) {
-          const enrollResponse = await axios.post(
-            "http://localhost:3000/api/enroll_course",
-            {
-              userId: signupResponse.data.savedUser._id,
-              courseId: params.courseId,
-            }
-          );
-
-          console.log(signupResponse, enrollResponse);
+        if (enrollResponse.status === 200) {
+          toast.success(`Successfully Enrolled to ${course.name} Course !`);
+          setTimeout(() => {
+            router.push("/dashboard");
+          }, 2500);
         }
+      } else if (signUpResponse.data.status === 409) {
+        toast.error("User Already Exist!");
+        toast.error("Try Login First!");
 
-        setFormData({
-          firstName: "",
-          lastName: "",
-          email: "",
-          password: "",
-          phone: "",
-          couponCode: "",
-          chooseObjective: "",
-          chooseBatch: "",
-        });
-
-        router.push("/login");
-      } catch (err) {
-        // toast.error(err.response.data);
+        setTimeout(() => {
+          router.push("/login");
+        }, 2500);
       }
-    };
 
-    signUpAndEnroll();
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        phone: "",
+        couponCode: "",
+        chooseObjective: "",
+        chooseBatch: "",
+      });
+    } catch (error) {
+      toast.error("Internal Error!");
+      setTimeout(() => {
+        router.push("/");
+      }, 2500);
+      console.log(error);
+    }
+    dispatch(loadingState(false));
   };
 
   const handleEnrollSubmit = async (e) => {
     e.preventDefault();
-
+    dispatch(loadingState(true));
     try {
       const enrollResponse = await axios.post(
         "http://localhost:3000/api/enroll_course",
@@ -109,22 +124,47 @@ const page = ({ params }) => {
         }
       );
 
+      if (enrollResponse.status === 200) {
+        toast.success("Successfully Enrolled!");
+        dispatch(signInSuccess(enrollResponse.data.user));
+        setTimeout(() => {
+          router.push("/dashboard");
+        }, 2500);
+      }
+
       setFormData({
         phone: "",
         couponCode: "",
         chooseObjective: "",
         chooseBatch: "",
       });
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      if (error.response.status === 409) {
+        toast.success("You have already enrolled in this Course!");
+        setTimeout(() => {
+          router.push("/dashboard");
+        }, 2500);
+      } else {
+        toast.error("Internal Error!");
+        router.push("/");
+      }
+
+      setFormData({
+        phone: "",
+        couponCode: "",
+        chooseObjective: "",
+        chooseBatch: "",
+      });
     }
+
+    dispatch(loadingState(false));
   };
 
   return (
     <>
       <Navbar />
       <section className="xl:pt-28 max-w-screen-xl m-auto">
-        <div className="bg-[url('/banner-web.png')] bg-cover bg-no-repeat  xl:rounded-xl px-5 sm:px-6 pt-28 xl:pt-8 pb-8 flex lg:flex-row flex-col lg:justify-between justify-center">
+        <div className="bg-[url('/banner-web.png')] bg-cover bg-no-repeat  xl:rounded-xl px-5 sm:px-6 pt-28 xl:pt-8 pb-8 flex lg:flex-row flex-col lg:justify-between justify-center items-center">
           <div className="flex flex-col gap-5 py-1 lg:gap-7 max-w-screen-md lg:w-auto">
             <div className="bg-[#FFD907] text-[#1b6b52e9] w-fit py-1 px-4 rounded-md font-bold text-[0.85rem] sm:text-[0.96rem] lg:text-lg">
               Government-certified online training
@@ -289,12 +329,86 @@ const page = ({ params }) => {
                       Valid till 18 Mar
                     </p>
                   </div>
-                  <button
-                    className="bg-[#00A5EC] hover:bg-[#008bec] transition-colors duration-200 py-2 rounded-sm text-white"
-                    type="submit"
-                  >
-                    Enroll Now
-                  </button>
+                  {loading ? (
+                    <button
+                      disabled
+                      className="bg-[#008fcc]  flex items-center gap-2 justify-center py-2 rounded-sm text-white "
+                    >
+                      {" "}
+                      Enroll Now
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        id="loading"
+                        className="w-6 h-6 animate-spin "
+                      >
+                        <circle
+                          cx="17.8"
+                          cy="6.2"
+                          r="2"
+                          fill="#ffffff"
+                          fill-opacity=".9"
+                        ></circle>
+                        <circle
+                          cx="12"
+                          cy="4"
+                          r="2"
+                          fill="#ffffff"
+                          fill-opacity=".8"
+                        ></circle>
+                        <circle
+                          cx="6.2"
+                          cy="6.2"
+                          r="2"
+                          fill="#ffffff"
+                          fill-opacity=".7"
+                        ></circle>
+                        <circle
+                          cx="4"
+                          cy="12"
+                          r="2"
+                          fill="#ffffff"
+                          fill-opacity=".6"
+                        ></circle>
+                        <circle
+                          cx="6.2"
+                          cy="17.6"
+                          r="2"
+                          fill="#ffffff"
+                          fill-opacity=".5"
+                        ></circle>
+                        <circle
+                          cx="12"
+                          cy="20"
+                          r="2"
+                          fill="#ffffff"
+                          fill-opacity=".4"
+                        ></circle>
+                        <circle
+                          cx="17.8"
+                          cy="17.6"
+                          r="2"
+                          fill="#ffffff"
+                          fill-opacity=".3"
+                        ></circle>
+                        <circle
+                          cx="20"
+                          cy="12"
+                          r="2"
+                          fill="#ffffff"
+                          fill-opacity=".2"
+                        ></circle>
+                      </svg>
+                    </button>
+                  ) : (
+                    <button
+                      className="bg-[#00A5EC] hover:bg-[#008fcc] py-2 transition-colors duration-200 rounded-sm text-white "
+                      type="submit"
+                    >
+                      Enroll Now
+                    </button>
+                  )}
                 </fieldset>
               </form>
             ) : (
@@ -308,7 +422,7 @@ const page = ({ params }) => {
                   Sign in or Login with Google
                 </div>
 
-                <form onSubmit={handleSignupSubmit} className="pt-4">
+                <form onSubmit={signUpAndEnroll} className="pt-4">
                   <fieldset className="border-t py-3 flex flex-col gap-3">
                     <legend className="text-center  text-[#676767] text-[0.78rem]">
                       OR
@@ -463,12 +577,86 @@ const page = ({ params }) => {
                         Valid till 18 Mar
                       </p>
                     </div>
-                    <button
-                      className="bg-[#00A5EC] hover:bg-[#008bec] py-2 rounded-sm text-white"
-                      type="submit"
-                    >
-                      Enroll Now
-                    </button>
+                    {loading ? (
+                      <button
+                        disabled
+                        className="bg-[#008fcc] flex items-center gap-2 justify-center py-2 rounded-sm text-white "
+                      >
+                        {" "}
+                        Enroll Now
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          id="loading"
+                          className="w-6 h-6 animate-spin "
+                        >
+                          <circle
+                            cx="17.8"
+                            cy="6.2"
+                            r="2"
+                            fill="#ffffff"
+                            fill-opacity=".9"
+                          ></circle>
+                          <circle
+                            cx="12"
+                            cy="4"
+                            r="2"
+                            fill="#ffffff"
+                            fill-opacity=".8"
+                          ></circle>
+                          <circle
+                            cx="6.2"
+                            cy="6.2"
+                            r="2"
+                            fill="#ffffff"
+                            fill-opacity=".7"
+                          ></circle>
+                          <circle
+                            cx="4"
+                            cy="12"
+                            r="2"
+                            fill="#ffffff"
+                            fill-opacity=".6"
+                          ></circle>
+                          <circle
+                            cx="6.2"
+                            cy="17.6"
+                            r="2"
+                            fill="#ffffff"
+                            fill-opacity=".5"
+                          ></circle>
+                          <circle
+                            cx="12"
+                            cy="20"
+                            r="2"
+                            fill="#ffffff"
+                            fill-opacity=".4"
+                          ></circle>
+                          <circle
+                            cx="17.8"
+                            cy="17.6"
+                            r="2"
+                            fill="#ffffff"
+                            fill-opacity=".3"
+                          ></circle>
+                          <circle
+                            cx="20"
+                            cy="12"
+                            r="2"
+                            fill="#ffffff"
+                            fill-opacity=".2"
+                          ></circle>
+                        </svg>
+                      </button>
+                    ) : (
+                      <button
+                        className="bg-[#00A5EC] hover:bg-[#008fcc] py-2 transition-colors duration-200 rounded-sm text-white "
+                        type="submit"
+                      >
+                        Enroll Now
+                      </button>
+                    )}
                   </fieldset>
                 </form>
               </>
@@ -758,7 +946,17 @@ const page = ({ params }) => {
         </div>
       </section>
       <Footer />
-      <Toaster position="bottom-right" reverseOrder={false} />
+      <Toaster
+        position="bottom-right"
+        reverseOrder={false}
+        toastOptions={{
+          duration: 2400,
+          style: {
+            background: "#404040",
+            color: "#fff",
+          },
+        }}
+      />
     </>
   );
 };

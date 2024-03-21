@@ -30,6 +30,8 @@ const Categories = () => {
     }
   }, [selectedFilter, allCourses]);
 
+  const [knowMoreClicked, setKnowMoreClicked] = useState(false);
+
   return (
     <section className="pb-20">
       <div className="max-w-screen-xl m-auto px-5 xl:px-0">
@@ -125,8 +127,25 @@ const Categories = () => {
                     </span>
                   </div>
                 </div>
-                <button className="bg-[#F3F8FF] outline-none w-full text-left px-4 text-[#1D98E0] font-semibold text-sm py-3">
-                  Know more {">"}
+                <button
+                  onClick={() => setKnowMoreClicked(true)}
+                  className={`bg-[#F3F8FF] outline-none ${
+                    knowMoreClicked ? "animate-pulse" : ""
+                  }  w-full flex text-left px-4 text-[#1D98E0] font-semibold text-[1rem] py-3`}
+                >
+                  Know more{" "}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    enable-background="new 0 0 24 24"
+                    viewBox="0 0 24 24"
+                    id="angle-double-right"
+                    className="w-7 h-7 -mt-[0.088rem]"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M8.5,8.3c-0.4-0.4-1-0.4-1.4,0c-0.4,0.4-0.4,1,0,1.4L9.3,12L7,14.3c-0.2,0.2-0.3,0.4-0.3,0.7c0,0.6,0.4,1,1,1c0.3,0,0.5-0.1,0.7-0.3l3-3c0,0,0,0,0,0c0.4-0.4,0.4-1,0-1.4L8.5,8.3z M17,11.3l-3-3c-0.4-0.4-1-0.4-1.4,0c-0.4,0.4-0.4,1,0,1.4l2.3,2.3l-2.3,2.3c-0.2,0.2-0.3,0.4-0.3,0.7c0,0.6,0.4,1,1,1c0.3,0,0.5-0.1,0.7-0.3l3-3C17.3,12.3,17.3,11.7,17,11.3z"
+                    ></path>
+                  </svg>
                 </button>
               </div>
             </Link>
