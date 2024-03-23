@@ -49,17 +49,17 @@ const Educators = () => {
 
           <Carousel className="">
             <CarouselContent className="px-4 sm:px-10 flex flex-row gap-6 py-2">
-              <CarouselItem className="basis-1/1 sm:basis-1/2 md:basis-1/3 h-fit lg:basis-1/4 px-0 border rounded-xl shadow-md overflow-hidden">
+              <CarouselItem className="basis-1/1 sm:basis-1/2 md:basis-1/3  lg:basis-1/4 px-0 border rounded-xl shadow-md overflow-hidden">
                 <img
                   className="w-full h-[230px] object-cover object-top"
                   src="/edu1.png"
                   alt="edu"
                 />
                 <div className=" py-3 flex flex-col gap-1 px-3">
-                  <h3 className="text-lg font-semibold">
+                  <h3 className="text-[1rem] font-semibold">
                     Anuj Kalbalia (Ex-IBM)
                   </h3>
-                  <p className="text-[1.1rem] font-medium">
+                  <p className="text-sm font-medium pb-2">
                     Educator, Web Development
                   </p>
                   <ul className="list-disc text-[#2c2c2ce0] text-sm flex flex-col gap-1 px-4">
@@ -69,62 +69,62 @@ const Educators = () => {
                 </div>
               </CarouselItem>
 
-              <CarouselItem className="basis-1/1 sm:basis-1/2 md:basis-1/3 h-fit lg:basis-1/4 px-0 border rounded-xl shadow-md overflow-hidden">
+              <CarouselItem className="basis-1/1 sm:basis-1/2 md:basis-1/3  lg:basis-1/4 px-0 border rounded-xl shadow-md overflow-hidden">
                 <img
                   className="w-full h-[230px] object-cover object-top"
-                  src="/edu1.png"
+                  src="https://training-uploads.internshala.com/homepage/media/educators_section/tripta_singh.png.webp"
                   alt="edu"
                 />
                 <div className=" py-3 flex flex-col gap-1 px-3">
-                  <h3 className="text-lg font-semibold">
-                    Anuj Kalbalia (Ex-IBM)
+                  <h3 className="text-[1rem] font-semibold">
+                    Tripta Singh (Ex-McKinsey)
                   </h3>
-                  <p className="text-[1.1rem] font-medium">
-                    Educator, Web Development
+                  <p className="text-sm font-medium pb-2">
+                    Educator, Advanced Excel
                   </p>
                   <ul className="list-disc text-[#2c2c2ce0] text-sm flex flex-col gap-1 px-4">
-                    <li>Ex-CodeChef, Internshala</li>
-                    <li>NIT Durgapur alumnus</li>
+                    <li>
+                      Ex-Director of Content Development, Knowledge Platform
+                    </li>
+                    <li>LSE Alumna</li>
                   </ul>
                 </div>
               </CarouselItem>
-
-              <CarouselItem className="basis-1/1 sm:basis-1/2 md:basis-1/3 h-fit lg:basis-1/4 px-0 border rounded-xl shadow-md overflow-hidden">
+              <CarouselItem className="basis-1/1 sm:basis-1/2 md:basis-1/3  lg:basis-1/4 px-0 border rounded-xl shadow-md overflow-hidden">
                 <img
                   className="w-full h-[230px] object-cover object-top"
-                  src="/edu1.png"
+                  src="https://trainings.internshala.com/cached_uploads/homepage/media/educators_section/kunal_jain.png"
                   alt="edu"
                 />
                 <div className=" py-3 flex flex-col gap-1 px-3">
-                  <h3 className="text-lg font-semibold">
-                    Anuj Kalbalia (Ex-IBM)
+                  <h3 className="text-[1rem] font-semibold">
+                    Kunal Jain (Ex-Capital One)
                   </h3>
-                  <p className="text-[1.1rem] font-medium">
-                    Educator, Web Development
+                  <p className="text-sm font-medium pb-2">
+                    Educator, Data Science
                   </p>
-                  <ul className="list-disc text-[#2c2c2ce0] text-sm flex flex-col gap-1 px-4">
-                    <li>Ex-CodeChef, Internshala</li>
-                    <li>NIT Durgapur alumnus</li>
+                  <ul className="list-disc text-[#2c2c2ce0] text-sm flex flex-col gap-1 px-4 pb-6">
+                    <li>Founder of Analytics Vidhya</li>
+                    <li>Ex-Aviva, IIT Bombay alumnus</li>
                   </ul>
                 </div>
               </CarouselItem>
-
-              <CarouselItem className="basis-1/1 sm:basis-1/2 md:basis-1/3 h-fit lg:basis-1/4 px-0 border rounded-xl shadow-md overflow-hidden">
+              <CarouselItem className="basis-1/1 sm:basis-1/2 md:basis-1/3  lg:basis-1/4 px-0 border rounded-xl shadow-md overflow-hidden">
                 <img
                   className="w-full h-[230px] object-cover object-top"
-                  src="/edu1.png"
+                  src="https://trainings.internshala.com/cached_uploads/homepage/media/educators_section/geetika_singh.png"
                   alt="edu"
                 />
                 <div className=" py-3 flex flex-col gap-1 px-3">
-                  <h3 className="text-lg font-semibold">
-                    Anuj Kalbalia (Ex-IBM)
+                  <h3 className="text-[1rem] font-semibold">
+                    Geetika Singh (Ex-HSBC)
                   </h3>
-                  <p className="text-[1.1rem] font-medium">
-                    Educator, Web Development
+                  <p className="text-sm font-medium pb-2">
+                    Educator, Human Resource Management
                   </p>
                   <ul className="list-disc text-[#2c2c2ce0] text-sm flex flex-col gap-1 px-4">
-                    <li>Ex-CodeChef, Internshala</li>
-                    <li>NIT Durgapur alumnus</li>
+                    <li>Ex-Accenture, Google, Uber, & Hero MotoCorp.</li>
+                    <li>University of Essex alumna</li>
                   </ul>
                 </div>
               </CarouselItem>

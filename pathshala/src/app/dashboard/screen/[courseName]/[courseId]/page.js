@@ -22,6 +22,7 @@ const page = ({ params }) => {
   const { currentUser } = useSelector((state) => state.user);
 
   const [filteredCourse, setFilteredCourse] = useState({});
+  const [topic, setTopic] = useState(null);
 
   useEffect(() => {
     if (currentUser != null) {
@@ -49,21 +50,23 @@ const page = ({ params }) => {
     }
   };
 
-  const [topic, setTopic] = useState(null);
-  const [curretChapterId, setCurrentChapterId] = useState("");
-
   const handleSetTopic = (item) => {
-    console.log(item);
     setTopic(item);
   };
 
   const handleVideoEnd = async (topicId) => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/update-topic-progress",
-        { courseId: params.courseId, topicId, userId: currentUser._id }
+        "http://localhost:3000/api/course_progress/",
+        {
+          courseId: params.courseId,
+          topicId,
+          userId: currentUser._id,
+        }
       );
       dispatch(signInSuccess(response.data.user));
+
+      // Stop duplication of certificate here
     } catch (err) {
       console.log(err);
     }
@@ -209,10 +212,7 @@ const page = ({ params }) => {
                     <h4 className="text-[0.83rem] pt-5  font-semibold text-[#828181]">
                       Topics
                     </h4>
-                    <div
-                      className="flex flex-col gap-2"
-                      onClick={() => setCurrentChapterId(item._id)}
-                    >
+                    <div className="flex flex-col gap-2">
                       {item.topics.map((item, index) => (
                         <div
                           className="text-[0.8rem] flex justify-between border py-2  cursor-pointer text-[#303030] px-2"

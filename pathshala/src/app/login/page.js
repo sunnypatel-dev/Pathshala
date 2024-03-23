@@ -1,5 +1,6 @@
 "use client";
 import Navbar from "@/components/Navbar";
+import OAuth from "@/components/OAuth";
 import {
   logOut,
   signInFailure,
@@ -10,6 +11,8 @@ import axios from "axios";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 
@@ -44,10 +47,21 @@ const page = () => {
           formData
         );
 
+        if (response.data.status == 404) {
+          toast.error("User Not Found!");
+          toast.error("Try Signin First!");
+        } else if (response.data.status == 400) {
+          toast.error("Invalid Credential");
+        } else if (response.data.status == 200) {
+          toast.success("Login Successfull!");
+          setTimeout(() => {
+            router.push("/dashboard");
+          }, 2100);
+        }
+
         dispatch(signInSuccess(response.data.user));
 
         console.log(response.data);
-        router.push("/dashboard");
       } catch (err) {
         console.log(err.response.data);
         dispatch(signInFailure());
@@ -63,14 +77,7 @@ const page = () => {
       <section className="py-20 lg:py-28 grid place-content-center px-5">
         <div className="bg-white max-w-[370px] mt-10 lg:mt-0 h-fit p-5 rounded-lg border">
           <h2 className="text-lg font-semibold pb-3">Login to your account</h2>
-          <div className="flex items-center py-2 font-medium text-[#4c4c4c]  px-1 rounded-sm gap-1 justify-center border text-[0.9rem]">
-            <img
-              className="w-4 object-contain"
-              src="/google-signin.png"
-              alt="google"
-            />
-            Login with Google
-          </div>
+          <OAuth />
           <form onSubmit={handleSubmit} className="pt-4">
             <fieldset className="border-t py-3 flex flex-col gap-3">
               <legend className="text-center  text-[#676767] text-[0.78rem]">
@@ -201,6 +208,17 @@ const page = () => {
           </form>
         </div>
       </section>
+      <Toaster
+        position="bottom-right"
+        reverseOrder={false}
+        toastOptions={{
+          duration: 2000,
+          style: {
+            background: "#404040",
+            color: "#fff",
+          },
+        }}
+      />
     </>
   );
 };

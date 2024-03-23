@@ -18,18 +18,24 @@ export async function POST(NextRequest) {
     //check if user already exist
 
     const user = await User.findOne({ email });
-    console.log(user);
+
     if (!user) {
-      return (
-        NextResponse.json({ error: "User does not exist" }), { status: 400 }
-      );
+      return NextResponse.json({
+        message: "User Not Found",
+        success: false,
+        status: 404,
+      });
     }
 
     // check if password is correct
     const validPassword = await bcryptjs.compare(password, user.password);
 
     if (!validPassword) {
-      return NextResponse.json({ error: "Invalid Password" }), { status: 400 };
+      return NextResponse.json({
+        message: "Invalid Password",
+        success: false,
+        status: 400,
+      });
     }
 
     const { password: hashedPassword, ...rest } = user._doc;
@@ -50,6 +56,7 @@ export async function POST(NextRequest) {
     const response = NextResponse.json({
       message: "Login successful",
       success: true,
+      status: 200,
       user: rest,
     });
 

@@ -38,7 +38,7 @@ const Navbar = () => {
     try {
       await axios.get("http://localhost:3000/api/logout");
 
-      router.push("/login");
+      router.push("/");
       dispatch(logOut());
     } catch (error) {
       console.log(error.message);
@@ -48,9 +48,36 @@ const Navbar = () => {
   const handleSearchBtn = () => {};
 
   const [profileDropdown, setProfileDropdown] = useState(false);
+
+  const [isFixed, setIsFixed] = useState(false);
+  const [lastScrollTop, setLastScrollTop] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScroll = window.pageYOffset;
+      if (currentScroll > lastScrollTop) {
+        // Scrolling down
+        setIsFixed(true);
+      } else {
+        // Scrolling up
+        setIsFixed(false);
+      }
+      setLastScrollTop(currentScroll <= 0 ? 0 : currentScroll);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [lastScrollTop]);
+
   return (
     <>
-      <div className=" bg-white fixed w-full z-50 shadow-[0px_3px_8px_0px_#00000024] ">
+      <div
+        className={`${
+          pathScreen ? "" : isFixed ? "-translate-y-full" : "translate-y-0"
+        } bg-white fixed w-full z-50 shadow-[0px_3px_8px_0px_#00000024]  transition-all duration-100 ease-linear`}
+      >
         <div
           className={`flex ${
             pathScreen
@@ -133,67 +160,59 @@ const Navbar = () => {
             ""
           ) : (
             <div className="hidden lg:flex items-center gap-5">
-              <div
-                onMouseEnter={() => setMouseEnter(true)}
-                className="flex py-6 h-full items-center gap-2 cursor-pointer hover:after:w-[14.9rem] hover:after:absolute hover:after:translate-y-7 hover:after:h-[0.16rem] hover:after:bg-[#35A3E3] "
-              >
-                <h3 className="font-medium text-[#303030] flex items-center gap-2 ">
+              <div className="relative group py-4">
+                <button
+                  onMouseEnter={() => setMouseEnter(true)}
+                  className="bg-white py-2 rounded font-medium text-[#303030] flex items-center gap-2 "
+                >
                   Certification courses{" "}
                   <p className="text-[0.67rem] bg-[#FFA333] text-white px-[0.16rem] py-[0.1rem] rounded">
                     70% OFF
                   </p>
-                </h3>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="w-4 h-4"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="m19.5 8.25-7.5 7.5-7.5-7.5"
-                  />
-                </svg>
-                <div
-                  className={`${
-                    mouseEnter ? " bg-white" : "hidden"
-                  } w-[239px] absolute z-50 top-[4.5rem] py-3`}
-                >
-                  <h3 className="text-xl font-semibold text-[#303030] px-2 pb-3">
-                    Most Popular
-                  </h3>
-                  <ul className="flex flex-col gap-1">
-                    <li className="hover:bg-[#35A3E3] hover:text-white px-2 py-1 ">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="w-4 h-4"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="m19.5 8.25-7.5 7.5-7.5-7.5"
+                    />
+                  </svg>
+                </button>
+                <div className="absolute hidden group-hover:block bg-white py-2 w-full rounded-sm">
+                  <div className="w-full h-[0.15rem] bg-[#0090df] mt-[0.37rem]"></div>
+                  <div>
+                    <h3 className="text-lg font-semibold px-4 py-2">
+                      Most Popular
+                    </h3>
+                    <a
+                      href="#"
+                      className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                    >
                       Web Development
-                    </li>
-                    <li className="hover:bg-[#35A3E3] hover:text-white px-2 py-1">
-                      Android App Development
-                    </li>
-                    <li className="hover:bg-[#35A3E3] hover:text-white px-2 py-1">
-                      Digital Marketing
-                    </li>
-                  </ul>
-                  <h3 className="text-xl font-semibold text-[#303030] px-2 py-3">
-                    Pathshala Choice
-                  </h3>
-                  <ul className="flex flex-col gap-1">
-                    <li className="hover:bg-[#35A3E3] hover:text-white px-2 py-1 ">
-                      Web Development
-                    </li>
-                    <li className="hover:bg-[#35A3E3] hover:text-white px-2 py-1">
-                      Android App Development
-                    </li>
-                    <li className="hover:bg-[#35A3E3] hover:text-white px-2 py-1">
-                      Digtial Marketing
-                    </li>
-                  </ul>
+                    </a>
+                    <a
+                      href="#"
+                      className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                    >
+                      Mobile App Development
+                    </a>
+                    <a
+                      href="#"
+                      className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                    >
+                      Cyber Security Course
+                    </a>
+                  </div>
                 </div>
               </div>
               <div
-                className="py-5 text-[#303030]  font-medium"
+                className="py-4 text-[#303030]  font-medium"
                 onMouseEnter={() => setMouseEnter(false)}
               >
                 Placement Guarantee courses
@@ -205,20 +224,22 @@ const Navbar = () => {
             {currentUser?.name ? (
               <>
                 {pathScreen ? (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    class="w-5 h-5 sm:block hidden"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0"
-                    />
-                  </svg>
+                  <div className="relative">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="w-6 h-6 sm:block hidden"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0"
+                      />
+                    </svg>
+                  </div>
                 ) : (
                   <Link
                     href="/dashboard"
@@ -228,55 +249,70 @@ const Navbar = () => {
                     Dashboard
                   </Link>
                 )}
-                <div
-                  className="flex items-center gap-1  cursor-pointer "
-                  onClick={() => setProfileDropdown(!profileDropdown)}
-                >
-                  <div className="border rounded-full px-2 py-[0.12rem]font-medium  border-[#0090DF] text-[#35A3E3] hover:bg-[#35A3E3] hover:text-white ease-in-out delay-100 transition-colors duration-200 ">
-                    S
-                  </div>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-3 h-3  hover:text-[#0090DF]"
-                    viewBox="0 0 512 512"
-                    id="down-arrow"
-                    fill="currentColor"
-                  >
-                    <path d="M98.9 184.7l1.8 2.1 136 156.5c4.6 5.3 11.5 8.6 19.2 8.6 7.7 0 14.6-3.4 19.2-8.6L411 187.1l2.3-2.6c1.7-2.5 2.7-5.5 2.7-8.7 0-8.7-7.4-15.8-16.6-15.8H112.6c-9.2 0-16.6 7.1-16.6 15.8 0 3.3 1.1 6.4 2.9 8.9z"></path>
-                  </svg>
-                </div>
-                {profileDropdown ? (
-                  <div className="absolute top-[3.52rem] border-t-2 border-[#4AADE6] right-5 bg-white shadow-lg pt-3 px-2 flex flex-col text-left">
-                    <div className="flex flex-col border-slate-200 border-b pb-2  ">
-                      <span className="text-md font-semibold">
-                        {currentUser.name}
-                      </span>
-                      <span className="text-md">{currentUser.email}</span>
-                    </div>
 
-                    <button
-                      className="text-left py-2 hover:text-[#4AADE6]"
-                      onClick={logout}
+                <div className="relative group">
+                  <div
+                    onMouseEnter={
+                      pathScreen ? undefined : () => setMouseEnter(true)
+                    }
+                    className="flex items-center gap-2 cursor-pointer"
+                  >
+                    <img
+                      className={`w-7 h-7 rounded-full`}
+                      height="100"
+                      width="100"
+                      src={currentUser?.photoUrl}
+                      alt="profile"
+                    />
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-3 h-3 hover:text-[#0090DF]"
+                      viewBox="0 0 512 512"
+                      id="down-arrow"
+                      fill="currentColor"
                     >
-                      Logout
-                    </button>
+                      <path d="M98.9 184.7l1.8 2.1 136 156.5c4.6 5.3 11.5 8.6 19.2 8.6 7.7 0 14.6-3.4 19.2-8.6L411 187.1l2.3-2.6c1.7-2.5 2.7-5.5 2.7-8.7 0-8.7-7.4-15.8-16.6-15.8H112.6c-9.2 0-16.6 7.1-16.6 15.8 0 3.3 1.1 6.4 2.9 8.9z"></path>
+                    </svg>
                   </div>
-                ) : (
-                  ""
-                )}
+
+                  <div className="absolute hidden group-hover:block right-0">
+                    <div
+                      className={`bg-white shadow-lg ${
+                        pathScreen ? "py-1" : "py-3"
+                      } flex flex-col text-left max-w-72`}
+                    >
+                      <div className="w-full h-[0.15rem] bg-[#0090df] mt-[0.37rem]"></div>
+                      <div className="flex flex-col px-2 border-slate-200 border-b py-2">
+                        <span className="text-md font-semibold">
+                          {currentUser.name}
+                        </span>
+                        <span className="text-md  overflow-hidden text-ellipsis whitespace-nowrap">
+                          {currentUser.email}
+                        </span>
+                      </div>
+
+                      <button
+                        className="text-left py-2 px-2 hover:text-[#4AADE6]"
+                        onClick={logout}
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </>
             ) : (
               <>
                 <div
                   onClick={handleSearchBtn}
-                  className="flex gap-2 hover:text-[#35A3E3]"
+                  className="flex gap-2 text-black cursor-pointer hover:text-[#35A3E3]"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
                     strokeWidth="1.5"
-                    stroke="#3b3b3b"
+                    stroke="currentColor"
                     className="w-5 h-5 mt-[0.1rem]"
                   >
                     <path
@@ -302,7 +338,7 @@ const Navbar = () => {
         onMouseEnter={() => setMouseEnter(false)}
         className={`${
           mouseEnter ? "" : "hidden"
-        } bg-[#0b0b0b2f] bg-opacity-60 backdrop-filter backdrop-blur-[4px] transition-opacity overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-30  w-full md:inset-0 h-[calc(100%-1rem)] max-h-full mt-[4.5rem]`}
+        } bg-[#0b0b0b2f] bg-opacity-60 backdrop-filter backdrop-blur-[4px] -translate-y-10 transition-opacity overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-30  w-full md:inset-0 h-[calc(100%-1rem)] max-h-full mt-[4.5rem]`}
       ></div>
     </>
   );

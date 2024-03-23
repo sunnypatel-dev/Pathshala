@@ -1,4 +1,5 @@
 // Import the functions you need from the SDKs you need
+
 import { initializeApp } from "firebase/app";
 import { getStorage } from "firebase/storage";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -18,4 +19,4 @@ const fireBaseConfig = {
 const app = initializeApp(fireBaseConfig);
 const storage = getStorage(app);
 
-export default storage;
+export { app, storage };

@@ -17,6 +17,7 @@ import toast from "react-hot-toast";
 import { Toaster } from "react-hot-toast";
 import { loadingState, signInSuccess } from "@/redux/user/userSlice";
 import { useDispatch } from "react-redux";
+import OAuth from "@/components/OAuth";
 
 const page = ({ params }) => {
   const router = useRouter();
@@ -164,7 +165,7 @@ const page = ({ params }) => {
     <>
       <Navbar />
       <section className="xl:pt-28 max-w-screen-xl m-auto">
-        <div className="bg-[url('/banner-web.png')] bg-cover bg-no-repeat  xl:rounded-xl px-5 sm:px-6 pt-28 xl:pt-8 pb-8 flex lg:flex-row flex-col lg:justify-between justify-center items-center">
+        <div className="bg-[url('/banner-web.png')] bg-cover bg-no-repeat  xl:rounded-xl px-5 sm:px-6 pt-28 xl:pt-8 pb-8 flex lg:flex-row flex-col lg:justify-between justify-center items-center lg:items-start">
           <div className="flex flex-col gap-5 py-1 lg:gap-7 max-w-screen-md lg:w-auto">
             <div className="bg-[#FFD907] text-[#1b6b52e9] w-fit py-1 px-4 rounded-md font-bold text-[0.85rem] sm:text-[0.96rem] lg:text-lg">
               Government-certified online training
@@ -413,14 +414,7 @@ const page = ({ params }) => {
               </form>
             ) : (
               <>
-                <div className="flex items-center py-2 font-medium text-[#4c4c4c]  px-1 rounded-sm gap-1 justify-center border text-[0.9rem]">
-                  <img
-                    className="w-4 object-contain"
-                    src="/google-signin.png"
-                    alt="google"
-                  />
-                  Sign in or Login with Google
-                </div>
+                <OAuth />
 
                 <form onSubmit={signUpAndEnroll} className="pt-4">
                   <fieldset className="border-t py-3 flex flex-col gap-3">

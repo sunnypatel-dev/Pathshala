@@ -16,7 +16,10 @@ const userSchema = new mongoose.Schema({
   },
   phone: {
     type: String,
-    required: true,
+  },
+  photoUrl: {
+    type: String,
+    default: "/default-user.png",
   },
   isVerified: {
     type: Boolean,
@@ -76,10 +79,21 @@ const userSchema = new mongoose.Schema({
           ],
         },
       ],
+      progress_status: {
+        type: Number,
+        default: 0,
+      },
       createdAt: {
         type: Date,
         default: Date.now,
       },
+      certificates: [
+        {
+          certificateId: {
+            type: String,
+          },
+        },
+      ],
     },
   ],
 });

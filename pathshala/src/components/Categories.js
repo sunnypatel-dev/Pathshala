@@ -6,7 +6,7 @@ import Link from "next/link";
 import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 
-const Categories = () => {
+const Categories = ({ loadingSkeleton }) => {
   const { courses } = useSelector((state) => state.courses);
 
   const allCourses = courses;
@@ -81,7 +81,7 @@ const Categories = () => {
         <div className="flex gap-10 flex-wrap ">
           {filteredItems?.map((item) => (
             <Link key={item._id} href={`/categories/${item._id}`}>
-              <div className="bg-white rounded-xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
+              <div className="bg-white rounded-xl overflow-hidden transition-all duration-100 shadow-[rgba(13,_38,_76,_0.13)_0px_9px_20px] hover:shadow-[rgba(13,_38,_76,_0.18)_0px_9px_20px]">
                 <img
                   className="w-[300px] h-[130px] object-cover"
                   src={item.img1}
