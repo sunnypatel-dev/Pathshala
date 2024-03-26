@@ -8,10 +8,11 @@ Pathshal is an online learning platform designed to provide a seamless and inter
 
 ### Key Features
 
-- User authentication and authorization
-- Course management (creation, editing, deletion)
+- User authorization
+- Course enrollment
 - User progress tracking
 - Quiz functionality
+- Video lectures and content delivery
 - Certificate generation
 - Dynamic PDF certificate creation
 - Firebase integration for certificate storage
