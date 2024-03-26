@@ -13,7 +13,7 @@ Before running the Pathshala project, ensure you have the following installed:
 
 To run the Pathshala project locally, follow these steps:
 
-1. Clone the repository:
+1. **Clone the repository:**
    ```bash
    git clone https://github.com/sunnypatel-koder/CODSOFT.git
    
