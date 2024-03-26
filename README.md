@@ -36,7 +36,7 @@ Blogger is a CMS tailored for managing blog content. It provides an intuitive in
 
 ## Contributing
 
-We welcome contributions to improve this project. To contribute, follow these steps:
+I welcome contributions to improve this project. To contribute, follow these steps:
 
 1. Fork the repository
 2. Create a new branch (`git checkout -b feature/improvement`)
