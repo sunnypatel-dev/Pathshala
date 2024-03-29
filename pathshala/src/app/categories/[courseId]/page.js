@@ -18,6 +18,7 @@ import { Toaster } from "react-hot-toast";
 import { loadingState, signInSuccess } from "@/redux/user/userSlice";
 import { useDispatch } from "react-redux";
 import OAuth from "@/components/OAuth";
+import Aside from "@/components/Aside";
 
 const page = ({ params }) => {
   const router = useRouter();
@@ -163,6 +164,7 @@ const page = ({ params }) => {
 
   return (
     <>
+      <Aside />
       <Navbar />
       <section className="xl:pt-28 max-w-screen-xl m-auto">
         <div className="bg-[url('/banner-web.png')] bg-cover bg-no-repeat  xl:rounded-xl px-5 sm:px-6 pt-28 xl:pt-8 pb-8 flex lg:flex-row flex-col lg:justify-between justify-center items-center lg:items-start">
@@ -266,7 +268,10 @@ const page = ({ params }) => {
                       value={formData.phone}
                       onChange={handleChange}
                       name="phone"
-                      placeholder="+91 873736363"
+                      placeholder="+91 8737363633"
+                      required
+                      pattern="\+\d{1,3}\d{9,12}"
+                      title="Mobile number must start with a country code followed by 9 to 12 digits."
                     />
                   </div>
                   <div>
@@ -293,7 +298,20 @@ const page = ({ params }) => {
                           name="chooseBatch"
                           className="border w-full text-[0.92rem] bg-white outline-none px-3 py-2 rounded-sm  text-[#303030]"
                         >
-                          <option>18th Mar, 2024</option>
+                          <option value="">Choose a date</option>
+                          {[0, 1, 2].map((offset) => {
+                            const date = new Date();
+                            date.setDate(date.getDate() + offset);
+                            const formattedDate = `${date.getDate()} ${date.toLocaleString(
+                              "default",
+                              { month: "short" }
+                            )}, ${date.getFullYear()}`;
+                            return (
+                              <option key={formattedDate} value={formattedDate}>
+                                {formattedDate}
+                              </option>
+                            );
+                          })}
                         </select>
                       </div>
                     </div>
@@ -314,9 +332,14 @@ const page = ({ params }) => {
                       name="chooseBatch"
                       className="border w-full text-[0.92rem] bg-white outline-none px-3 py-2 h-full rounded-sm  text-[#303030]"
                     >
-                      <option>Choose your objective</option>
-                      <option>Gain a new skill</option>
-                      <option>18th Mar, 2024</option>
+                      <option value="">Choose your objective</option>
+                      <option value="gain_skill">Gain a new skill</option>
+                      <option value="improve_career">
+                        Improve career prospects
+                      </option>
+                      <option value="personal_interest">
+                        Pursue a personal interest
+                      </option>
                     </select>
                   </div>
                   <div className="flex  gap-3 items-center">
@@ -327,7 +350,10 @@ const page = ({ params }) => {
                       ₹ 4499
                     </p>
                     <p className="font-normal text-xs sm:text-sm text-[#303030]">
-                      Valid till 18 Mar
+                      Valid till {new Date().getDate()}{" "}
+                      {new Date().toLocaleString("default", {
+                        month: "short",
+                      })}
                     </p>
                   </div>
                   {loading ? (
@@ -433,6 +459,11 @@ const page = ({ params }) => {
                         value={formData.email}
                         onChange={handleChange}
                         placeholder="john@gmail.com"
+                        required
+                        pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                        title="Please enter a valid email address"
+                        minLength="5"
+                        maxLength="50"
                       />
                     </div>
                     <div className="flex flex-col ">
@@ -447,6 +478,11 @@ const page = ({ params }) => {
                         value={formData.password}
                         onChange={handleChange}
                         placeholder="Must be at least 6 characters"
+                        required
+                        minLength="8"
+                        maxLength="50"
+                        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                        title="Password must contain at least 8 characters, including one uppercase letter, one lowercase letter, one digit, and one special character."
                       />
                     </div>
                     <div className="flex flex-row gap-3">
@@ -490,7 +526,10 @@ const page = ({ params }) => {
                         value={formData.phone}
                         onChange={handleChange}
                         name="phone"
-                        placeholder="+91 873736363"
+                        placeholder="+91 8737363633"
+                        required
+                        pattern="\+\d{1,3}\d{9,12}"
+                        title="Mobile number must start with a country code followed by 9 to 12 digits."
                       />
                     </div>
                     <div>
@@ -527,12 +566,23 @@ const page = ({ params }) => {
                             onChange={handleChange}
                             className="border w-full text-[0.92rem] bg-white outline-none px-3 py-2 rounded-sm  text-[#303030]"
                           >
-                            <option value="18th Mar, 2024">
-                              18th Mar, 2024
-                            </option>
-                            <option value="20th Mar, 2024">
-                              20th Mar, 2024
-                            </option>
+                            <option value="">Choose a date</option>
+                            {[0, 1, 2].map((offset) => {
+                              const date = new Date();
+                              date.setDate(date.getDate() + offset);
+                              const formattedDate = `${date.getDate()} ${date.toLocaleString(
+                                "default",
+                                { month: "short" }
+                              )}, ${date.getFullYear()}`;
+                              return (
+                                <option
+                                  key={formattedDate}
+                                  value={formattedDate}
+                                >
+                                  {formattedDate}
+                                </option>
+                              );
+                            })}
                           </select>
                         </div>
                       </div>
@@ -556,8 +606,13 @@ const page = ({ params }) => {
                         className="border w-full text-[0.92rem] bg-white outline-none px-3 py-2 h-full rounded-sm  text-[#303030]"
                       >
                         <option value="">Choose your objective</option>
-                        <option value="gain">Gain a new skill</option>
-                        <option value="cetificate">Certificate</option>
+                        <option value="gain_skill">Gain a new skill</option>
+                        <option value="improve_career">
+                          Improve career prospects
+                        </option>
+                        <option value="personal_interest">
+                          Pursue a personal interest
+                        </option>
                       </select>
                     </div>
                     <div className="flex  gap-3 items-center">
@@ -568,7 +623,10 @@ const page = ({ params }) => {
                         ₹ 4499
                       </p>
                       <p className="font-normal text-xs sm:text-sm text-[#303030]">
-                        Valid till 18 Mar
+                        Valid till {new Date().getDate()}{" "}
+                        {new Date().toLocaleString("default", {
+                          month: "short",
+                        })}
                       </p>
                     </div>
                     {loading ? (

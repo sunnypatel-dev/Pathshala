@@ -96,7 +96,7 @@ const Navbar = () => {
                   setOpenSidebar(!openSidebar);
                 }}
                 type="button"
-                class="inline-flex items-center text-sm text-gray-500 rounded-lg hover:border px-1 py-1 hover:border-gray-300  outline-none"
+                class="inline-flex lg:hidden items-center text-sm text-gray-500 rounded-lg hover:border px-1 py-1 hover:border-gray-300  outline-none"
               >
                 <svg
                   class="w-6 h-6"
@@ -114,6 +114,10 @@ const Navbar = () => {
               </button>
             ) : (
               <button
+                onClick={() => {
+                  dispatch(openScreenSidebar(openSidebar));
+                  setOpenSidebar(!openSidebar);
+                }}
                 type="button"
                 class="inline-flex lg:hidden items-center text-sm text-gray-500 rounded-lg hover:border px-1 py-1 hover:border-gray-300  outline-none"
               >

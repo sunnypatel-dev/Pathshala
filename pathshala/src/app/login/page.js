@@ -96,6 +96,10 @@ const page = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
+                  pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                  title="Please enter a valid email address"
+                  minLength="5"
+                  maxLength="50"
                 />
               </div>
               <div className="flex flex-col ">
@@ -111,6 +115,10 @@ const page = () => {
                   onChange={handleChange}
                   placeholder="Must be at least 6 characters"
                   required
+                  minLength="8"
+                  maxLength="50"
+                  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                  title="Password must contain at least 8 characters, including one uppercase letter, one lowercase letter, one digit, and one special character."
                 />
               </div>
               <a className="text-right text-sm font-semibold text-[#4195c5]">

@@ -30,7 +30,8 @@ const Categories = ({ loadingSkeleton }) => {
     }
   }, [selectedFilter, allCourses]);
 
-  const [knowMoreClicked, setKnowMoreClicked] = useState(false);
+  // know more button
+  const [clickedIndex, setClickedIndex] = useState(null);
 
   return (
     <section className="pb-20">
@@ -128,9 +129,9 @@ const Categories = ({ loadingSkeleton }) => {
                   </div>
                 </div>
                 <button
-                  onClick={() => setKnowMoreClicked(true)}
+                  onClick={() => setClickedIndex(item._id)}
                   className={`bg-[#F3F8FF] outline-none ${
-                    knowMoreClicked ? "animate-pulse" : ""
+                    clickedIndex === item._id ? "animate-pulse" : ""
                   }  w-full flex text-left px-4 text-[#1D98E0] font-semibold text-[1rem] py-3`}
                 >
                   Know more{" "}

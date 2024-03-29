@@ -14,6 +14,27 @@ import { useDispatch } from "react-redux";
 
 const page = ({ params }) => {
   const { currentUser } = useSelector((state) => state.user);
+  const { courses } = useSelector((state) => state.courses);
+
+  const [selectedFilter, setSelectedFilter] = useState("All");
+
+  const [filteredCourses, setFilteredCourse] = useState([]);
+
+  useEffect(() => {
+    if (selectedFilter == "All") {
+      setFilteredCourse(currentUser?.courses);
+    } else if (selectedFilter == "In-Progress") {
+      const filteredCourses = currentUser?.courses.filter(
+        (item) => item.progress_status < 100
+      );
+      setFilteredCourse(filteredCourses);
+    } else if (selectedFilter == "Completed") {
+      const filteredCourses = currentUser?.courses.filter(
+        (item) => item.progress_status == 100
+      );
+      setFilteredCourse(filteredCourses);
+    }
+  }, [selectedFilter]);
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -67,28 +88,8 @@ const page = ({ params }) => {
     setCourseProgress(courseTopicsWithProgress);
   }, [currentUser]);
 
-  // const handleCertificate = async () => {
-  //   try {
-  //     const response = await axios.post(
-  //       "http://localhost:3000/api/user_certificates",
-  //       courseProgress
-  //     );
-  //     if (response.status == 200) {
-  //       console.log(response);
-  //     }
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-  // setTimeout(() => {
-  //   handleCertificate();
-  //   console.log("here", courseProgress);
-  // }, 2000);
-
-  const [resumeClicked, setResumeClicked] = useState(false);
-
-  const [selectedFilter, setSelectedFilter] = useState("All");
+  // resume animation btn
+  const [clickedIndex, setClickedIndex] = useState("");
 
   const [asideMenu, setAsideMenu] = useState("Dashboard");
 
@@ -187,7 +188,7 @@ const page = ({ params }) => {
                     d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25M9 16.5v.75m3-3v3M15 12v5.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"
                   />
                 </svg>
-                <span class=" text-[1rem]">Certificates</span>
+                <span class="text-[1rem]">Certificates</span>
               </a>
             </li>
           </ul>
@@ -270,6 +271,7 @@ const page = ({ params }) => {
               />
             </svg>
             <input
+              onClick={() => router.push("/search_courses")}
               className="border-none w-full outline-none py-2"
               type="text"
               placeholder="Search For Enrolled Cours..."
@@ -358,6 +360,7 @@ const page = ({ params }) => {
             />
           </svg>
           <input
+            onClick={() => router.push("/search_courses")}
             className="border-none w-full outline-none py-2"
             type="text"
             placeholder="Search For Enrolled Cours..."
@@ -371,14 +374,17 @@ const page = ({ params }) => {
               <h1 className="text-[1.3rem] sm:text-2xl font-bold text-[#494949]">
                 Enrolled Courses
               </h1>
-              <select className="block xl:hidden bg-[#e2f5ff] text-black rounded w-52 px-3 py-2 outline-none border-none my-10">
-                <option value="All Courses">All</option>
-                <option value="All Courses">In-Progress</option>
-                <option value="All Courses">Completed</option>
+              <select
+                onChange={(e) => setSelectedFilter(e.target.value)}
+                className="block xl:hidden bg-[#e2f5ff] text-black rounded w-52 px-3 py-2 outline-none border-none my-10"
+              >
+                <option value="All">All</option>
+                <option value="In-Progress">In-Progress</option>
+                <option value="Completed">Completed</option>
               </select>
               <ul className="xl:flex hidden  py-5 gap-4">
                 <li
-                  // onClick={handleFilter}
+                  onClick={() => setSelectedFilter("All")}
                   className={`py-2 px-4 font-medium cursor-pointer text-black border-b-[3px]  ${
                     selectedFilter == "All"
                       ? "border-[#1d98e0]"
@@ -388,7 +394,7 @@ const page = ({ params }) => {
                   All
                 </li>
                 <li
-                  // onClick={handleFilter}
+                  onClick={() => setSelectedFilter("In-Progress")}
                   className={`py-2 px-4 font-medium cursor-pointer text-black border-b-[3px]  ${
                     selectedFilter == "In-Progress"
                       ? "border-[#1d98e0]"
@@ -398,7 +404,7 @@ const page = ({ params }) => {
                   In-Progress
                 </li>
                 <li
-                  // onClick={handleFilter}
+                  onClick={() => setSelectedFilter("Completed")}
                   className={`py-2 px-4 font-medium cursor-pointer text-black border-b-[3px]  ${
                     selectedFilter == "Completed"
                       ? "border-[#1d98e0]"
@@ -411,14 +417,14 @@ const page = ({ params }) => {
             </div>
             {/* // courses subscribed  */}
             <div className="flex gap-10 flex-wrap ">
-              {currentUser?.courses.map((item, index) => (
+              {filteredCourses.map((item, index) => (
                 <div className="bg-white rounded-xl overflow-hidden border">
                   <img
                     className="w-[300px] h-[130px] object-cover"
                     src={item.img1}
                   />
                   <div className="flex flex-col border px-4">
-                    {courseProgress.map((course) => (
+                    {courseProgress?.map((course) => (
                       <>
                         {item._id === course.courseId && (
                           <div className="flex flex-col py-2">
@@ -489,16 +495,11 @@ const page = ({ params }) => {
                       </div>
                     </div>
                     <hr className="my-1" />
-                    {courseProgress.map((course) => (
+                    {courseProgress?.map((course) => (
                       <>
                         {item._id === course.courseId &&
                           course.percentageCompleted === 100 && (
-                            <Link
-                              href={`dashboard/screen/${
-                                item.name + "/" + item._id
-                              }`}
-                              className="flex items-center justify-center bg-[#EAFCFF] outline-none rounded-2xl px-4 py-[0.5rem] my-2 text-teal-500 font-semibold text-md"
-                            >
+                            <div className="flex items-center justify-center bg-[#EAFCFF] outline-none rounded-2xl px-4 py-[0.5rem] my-2 text-teal-500 font-semibold text-md">
                               <h3 className="">Course Completed&nbsp;</h3>
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -512,7 +513,7 @@ const page = ({ params }) => {
                                   d="M12,2C6.5,2,2,6.5,2,12s4.5,10,10,10s10-4.5,10-10C22,6.5,17.5,2,12,2z M16.2,10.3l-4.8,4.8c-0.4,0.4-1,0.4-1.4,0l0,0l-2.2-2.2c-0.4-0.4-0.4-1,0-1.4c0.4-0.4,1-0.4,1.4,0c0,0,0,0,0,0l1.5,1.5l4.1-4.1c0.4-0.4,1-0.4,1.4,0C16.6,9.3,16.6,9.9,16.2,10.3z"
                                 ></path>
                               </svg>
-                            </Link>
+                            </div>
                           )}
                         {item._id === course.courseId &&
                           course.percentageCompleted < 100 && (
@@ -520,11 +521,11 @@ const page = ({ params }) => {
                               href={`dashboard/screen/${
                                 item.name + "/" + item._id
                               }`}
-                              onClick={() => setResumeClicked(true)}
+                              onClick={() => setClickedIndex(item._id)}
                               className="flex items-center justify-center bg-[#EAFCFF] outline-none rounded-2xl px-4 py-[0.5rem] my-2 text-[#1D98E0] font-semibold text-md"
                             >
                               <h3 className="">Resume Course&nbsp;</h3>
-                              {resumeClicked ? (
+                              {clickedIndex === item._id ? (
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
                                   fill="none"
@@ -549,9 +550,96 @@ const page = ({ params }) => {
                   </div>
                 </div>
               ))}
-            </div>{" "}
+            </div>
+            {currentUser?.courses.length == 0 && (
+              <>
+                {" "}
+                <hr />
+                <h2 className="text-center py-20">No courses enrolled yet.</h2>
+                <hr />{" "}
+              </>
+            )}
           </>
         )}
+      </div>
+
+      <div className="pb-10 sm:ml-64 px-5">
+        <h1 className="text-[1.3rem] sm:text-2xl pt-5 font-bold text-[#494949]">
+          Recommended Courses
+        </h1>
+        <div className="flex gap-10 flex-wrap py-10">
+          {courses.map((item) => (
+            <Link key={item._id} href={`/categories/${item._id}`}>
+              <div className="bg-white rounded-xl overflow-hidden transition-all duration-100 border">
+                <img
+                  className="w-[300px] h-[130px] object-cover"
+                  src={item.img1}
+                  alt={item.category}
+                />
+                <div className="px-4 pt-2 pb-6">
+                  <div className="flex items-center gap-2 py-1">
+                    <h4 className="text-[13px] text-[#4c4c4c] font-medium">
+                      {item.duration}
+                    </h4>
+                    <Image
+                      height={10}
+                      width={60}
+                      className="h-auto w-auto mt-[0.15rem] object-cover"
+                      src="/language-card.png"
+                      alt="language-taught"
+                    />
+                  </div>
+                  <h2 className="text-[1.2rem] pt-2 pb-3 font-semibold">
+                    {item.name}
+                  </h2>
+                  <div className="flex gap-2">
+                    <span className="flex text-[14px] text-[#4c4c4c] font-medium items-center">
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M7.99984 2.66666L9.64784 5.95793L13.3332 6.48895L10.6665 9.04941L11.2958 12.6667L7.99984 10.9579L4.70384 12.6667L5.33317 9.04941L2.6665 6.48895L6.35184 5.95793L7.99984 2.66666Z"
+                          fill="#FFAE00"
+                          stroke="#FFAE00"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                      <span>4.1</span>
+                    </span>
+                    <span className="text-[14px] border-l border-[#9a9a9a] pl-2 text-[#4c4c4c]  font-medium">
+                      109,125 learners
+                    </span>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setClickedIndex(item._id)}
+                  className={`bg-[#F3F8FF] outline-none ${
+                    clickedIndex === item._id ? "animate-pulse" : ""
+                  }  w-full flex text-left px-4 text-[#1D98E0] font-semibold text-[1rem] py-3`}
+                >
+                  Know more{" "}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    enable-background="new 0 0 24 24"
+                    viewBox="0 0 24 24"
+                    id="angle-double-right"
+                    className="w-7 h-7 -mt-[0.088rem]"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M8.5,8.3c-0.4-0.4-1-0.4-1.4,0c-0.4,0.4-0.4,1,0,1.4L9.3,12L7,14.3c-0.2,0.2-0.3,0.4-0.3,0.7c0,0.6,0.4,1,1,1c0.3,0,0.5-0.1,0.7-0.3l3-3c0,0,0,0,0,0c0.4-0.4,0.4-1,0-1.4L8.5,8.3z M17,11.3l-3-3c-0.4-0.4-1-0.4-1.4,0c-0.4,0.4-0.4,1,0,1.4l2.3,2.3l-2.3,2.3c-0.2,0.2-0.3,0.4-0.3,0.7c0,0.6,0.4,1,1,1c0.3,0,0.5-0.1,0.7-0.3l3-3C17.3,12.3,17.3,11.7,17,11.3z"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
     </>
   );

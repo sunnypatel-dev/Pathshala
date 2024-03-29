@@ -1,4 +1,5 @@
 "use client";
+import Aside from "@/components/Aside";
 import Navbar from "@/components/Navbar";
 import axios from "axios";
 import React, { useState } from "react";
@@ -6,6 +7,7 @@ import React, { useState } from "react";
 const page = () => {
   const [verificationId, setVerificationId] = useState("");
   const [certificate, setCertificate] = useState(null);
+  const [err, setErr] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,15 +17,21 @@ const page = () => {
         { verificationId }
       );
 
-      setCertificate(response.data.certificate);
+      if (response.data.status == 403) {
+        setErr(true);
+        setCertificate(null);
+      } else if (response.data.status == 200) {
+        setErr(false);
+        setCertificate(response.data.certificate);
+      }
     } catch (err) {
       console.log(err);
     }
   };
-  console.log(verificationId);
 
   return (
     <>
+      <Aside />
       <Navbar />
       <div className="py-28 sm:py-36 sm:px-0 px-5">
         <h1 className="text-xl sm:text-2xl font-semibold text-center">
@@ -41,36 +49,51 @@ const page = () => {
             </button>
           </form>
 
-          {certificate !== null && (
+          {err ? (
+            <>
+              {" "}
+              <h4 className="text-xs px-2 text-red-500">
+                Certificate id. is not valid
+              </h4>
+            </>
+          ) : (
+            ""
+          )}
+
+          {certificate !== null ? (
             <>
               <h4 className="text-xs px-2 text-teal-500">
-                Certificate no. is valid
+                Certificate id. is valid
               </h4>
               <div className="text-xs font-light pb-2 flex flex-col gap-1">
                 <table cellPadding="8">
                   <tbody>
                     <tr className="py-2">
                       <td className="">Name:</td>
-                      <td className="">{certificate.username}</td>
+                      <td className="">{certificate?.username}</td>
                     </tr>
                     <tr className="py-2">
                       <td className="">Course Name:</td>
-                      <td className="">{certificate.course_name}</td>
+                      <td className="">{certificate?.course_name}</td>
                     </tr>
                     <tr className="py-2">
                       <td className="">Date of Certification:</td>
-                      <td className="">{certificate.date_of_completion}</td>
+                      <td className="">
+                        {certificate?.date_of_completion?.substring(0, 10)}
+                      </td>
                     </tr>
                   </tbody>
                 </table>
                 <a
-                  href={certificate.certificateDownloadUrl}
+                  href={certificate?.certificateDownloadUrl}
                   className="px-2 py-2 text-blue-500 font-normal"
                 >
                   Download Certificate
                 </a>
               </div>
             </>
+          ) : (
+            ""
           )}
         </div>
       </div>

@@ -26,13 +26,15 @@ const Certificates = () => {
     handleCertificate();
   }, [currentUser._id]);
 
+  console.log("here", certificates);
+
   return (
     <div className="pb-6 pt-5 md:pb-6 md:pt-6">
       <h1 className="text-[1.3rem] sm:text-2xl font-bold text-[#494949]">
         Certificates
       </h1>
 
-      <div class="relative overflow-x-auto shadow-md  mt-10">
+      <div class="relative overflow-x-auto shadow-md  mt-10  z-10">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
             <tr>
@@ -55,10 +57,10 @@ const Certificates = () => {
           </thead>
           <tbody>
             {certificates?.map((item, index) => (
-              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 ">
                 <th
                   scope="row"
-                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                 >
                   {item.course_name}
                 </th>
@@ -75,6 +77,16 @@ const Certificates = () => {
           </tbody>
         </table>
       </div>
+      {certificates.length == 0 && (
+        <>
+          {" "}
+          <div className="pt-10">
+            <hr />
+            <h1 className="py-20 text-center">No certificate Available</h1>
+            <hr />
+          </div>
+        </>
+      )}
     </div>
   );
 };

@@ -1,5 +1,6 @@
 "use client";
 import Advantage from "@/components/Advantage";
+import Aside from "@/components/Aside";
 import Banner from "@/components/Banner";
 import Categories from "@/components/Categories";
 import Educators from "@/components/Educators";
@@ -33,6 +34,7 @@ export default function Home() {
 
   return (
     <>
+      <Aside />
       <Navbar />
       <Hero />
       <Banner />

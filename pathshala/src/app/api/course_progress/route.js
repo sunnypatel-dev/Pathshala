@@ -83,7 +83,7 @@ export async function POST(NextRequest) {
 
     if (percentageCompleted == 100) {
       function generateCustomCertificateId() {
-        const characters = "SUNNY37";
+        const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         const length = 7;
         let customId = "";
 
@@ -181,7 +181,7 @@ export async function POST(NextRequest) {
         });
 
         page.drawText(
-          `Verifiy here: http://localhost:3000/verifiy_certificate/${customCertificateId.toLowerCase()}/`,
+          `Verifiy here: http://localhost:3000/verifiy_certificate/`,
           {
             x: 250,
             y: 96,

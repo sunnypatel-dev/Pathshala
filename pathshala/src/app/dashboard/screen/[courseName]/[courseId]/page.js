@@ -9,6 +9,8 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 
+import Quiz from "react-quiz-component";
+
 import {
   Accordion,
   AccordionContent,
@@ -17,8 +19,12 @@ import {
 } from "@/components/ui/accordion";
 import dynamic from "next/dynamic";
 import { useSelector } from "react-redux";
+import { quiz } from "./quiz";
 
 const page = ({ params }) => {
+  const dispatch = useDispatch();
+  const router = useRouter();
+
   const { currentUser } = useSelector((state) => state.user);
 
   const [filteredCourse, setFilteredCourse] = useState({});
@@ -31,11 +37,12 @@ const page = ({ params }) => {
       );
 
       setFilteredCourse(filteredCourse);
+
+      if (filteredCourse.progress_status == 100) {
+        router.push("/dashboard");
+      }
     }
   }, [currentUser]);
-
-  const dispatch = useDispatch();
-  const router = useRouter();
 
   const { openSidebar } = useSelector((state) => state.user);
 
@@ -377,25 +384,8 @@ const page = ({ params }) => {
             </video>
           </div>
         ) : (
-          <div>
-            {currentQuestion ? (
-              <div>
-                <h2>{currentQuestion.question}</h2>
-                <input
-                  type="text"
-                  value={userAnswer}
-                  onChange={handleAnswerChange}
-                />
-                <button onClick={handleNextQuestion}>Next</button>
-              </div>
-            ) : (
-              <div>
-                <h2>Quiz completed!</h2>
-                <p>
-                  Your score is: {score} out of {questions.length}
-                </p>
-              </div>
-            )}
+          <div className="w-fit m-auto">
+            <Quiz quiz={quiz} timer={60} />
           </div>
         )}
       </div>
