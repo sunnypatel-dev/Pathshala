@@ -16,14 +16,21 @@ To run the Pathshala project locally, follow these steps:
 1. **Clone the repository:**
    ```bash
    git clone https://github.com/sunnypatel-koder/CODSOFT.git
-   
+
+   ```
 2. **Install dependencies:**
+
    ```bash
    cd pathshala
-   pnpm install
+   pnpm install && pnpm run build
+
+   ```
 
 3. **Start the development server:**
-    ```bash
-    pnpm run dev
+
+   ```bash
+   pnpm run dev (slow) or pnpm start (fast)
+
+   ```
 
 4. Access the Pathshala application in your browser at http://localhost:3000.
