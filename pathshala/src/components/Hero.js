@@ -67,13 +67,13 @@ const Hero = () => {
                       xmlns="http://www.w3.org/2000/svg"
                       fill="currentColor"
                       viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      class="w-6 h-6 -rotate-45"
+                      strokeWidth="1.5"
+                      className="w-6 h-6 -rotate-45"
                     >
                       <path
                         stroke="#fff"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                         d="m9 12.75 3 3m0 0 3-3m-3 3v-7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                       />
                     </svg>
@@ -86,6 +86,7 @@ const Hero = () => {
                 height={300}
                 width={300}
                 src="/boy.png"
+                alt="boy"
               />
             </div>
           </a>
@@ -112,13 +113,13 @@ const Hero = () => {
                       xmlns="http://www.w3.org/2000/svg"
                       fill="currentColor"
                       viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      class="w-6 h-6 -rotate-45"
+                      strokeWidth="1.5"
+                      className="w-6 h-6 -rotate-45"
                     >
                       <path
                         stroke="#fff"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                         d="m9 12.75 3 3m0 0 3-3m-3 3v-7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                       />
                     </svg>
@@ -131,6 +132,7 @@ const Hero = () => {
                 height={300}
                 width={300}
                 src="/girl.png"
+                alt="boy"
               />
             </div>
           </a>
@@ -174,28 +176,28 @@ const Hero = () => {
               className="grayscale h-auto w-auto"
               width={170}
               height={160}
-              alt=""
+              alt="company"
             />
             <Image
               src="/ey.png.webp"
               className="grayscale h-auto w-auto"
               width={170}
               height={160}
-              alt=""
+              alt="company"
             />
             <Image
               src="/bosch.png.webp"
               className="grayscale h-auto w-auto"
               width={170}
               height={160}
-              alt=""
+              alt="company"
             />
             <Image
               src="/birla.png.webp"
               className="grayscale h-auto w-auto"
               width={170}
               height={160}
-              alt=""
+              alt="company"
             />
 
             <Image
@@ -203,28 +205,28 @@ const Hero = () => {
               className="grayscale h-auto w-auto"
               width={170}
               height={160}
-              alt=""
+              alt="company"
             />
             <Image
               src="/mi.png.webp"
               className="grayscale h-auto w-auto"
               width={170}
               height={160}
-              alt=""
+              alt="company"
             />
             <Image
               src="/redbus.png.webp"
               className="grayscale h-auto w-auto"
               width={130}
               height={160}
-              alt=""
+              alt="company"
             />
             <Image
               src="/nestle.png.webp"
               className="grayscale h-auto w-auto"
               width={170}
               height={160}
-              alt=""
+              alt="company"
             />
 
             <Image
@@ -232,14 +234,14 @@ const Hero = () => {
               className="grayscale h-auto w-auto"
               width={170}
               height={160}
-              alt=""
+              alt="company"
             />
             <Image
               src="/zomato.png.webp"
               className="grayscale h-auto w-auto"
               width={130}
               height={160}
-              alt=""
+              alt="company"
             />
 
             <Image
@@ -247,21 +249,21 @@ const Hero = () => {
               className="grayscale h-auto w-auto"
               width={130}
               height={160}
-              alt=""
+              alt="company"
             />
             <Image
               src="/justdial.png.webp"
               className="grayscale h-auto w-auto"
               width={130}
               height={160}
-              alt=""
+              alt="company"
             />
             <Image
               src="/make-my-trip.png.webp"
               className="grayscale w-auto h-auto"
               width={130}
               height={160}
-              alt=""
+              alt="company"
             />
           </div>
         </div>

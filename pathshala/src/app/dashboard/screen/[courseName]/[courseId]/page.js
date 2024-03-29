@@ -130,16 +130,16 @@ const page = ({ params }) => {
       <Navbar />
 
       <aside
-        class={`fixed  top-0 left-0 z-40 w-52 sm:w-72  border-r border-zinc-300 h-screen transition-transform lg:translate-x-0 ${
+        className={`fixed  top-0 left-0 z-40 w-52 sm:w-72  border-r border-zinc-300 h-screen transition-transform lg:translate-x-0 ${
           openSidebar ? "translate-x-0" : "-translate-x-full"
         }`}
         aria-label="Sidebar"
       >
-        <div class="h-full px-3 pt-20  bg-white flex flex-col justify-between">
+        <div className="h-full px-3 pt-20  bg-white flex flex-col justify-between">
           <div className="h-[90%]  overflow-y-auto ">
             <Link
               href="/dashboard"
-              class="flex items-center gap-2   text-[#35A3E3] font-semibold  rounded-lg  group"
+              className="flex items-center gap-2   text-[#35A3E3] font-semibold  rounded-lg  group"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -153,7 +153,7 @@ const page = ({ params }) => {
                   d="M17 1h-2a1 1 0 0 0-1 1v16.992h4V2a1 1 0 0 0-1-1zm-6 6H9a1 1 0 0 0-1 1v10.992h4V8a1 1 0 0 0-1-1zm-6 6H3a1 1 0 0 0-1 1v4.992h4V14a1 1 0 0 0-1-1z"
                 ></path>
               </svg>
-              <span class=" text-[0.88rem] ">Visit Dashboard</span>
+              <span className=" text-[0.88rem] ">Visit Dashboard</span>
             </Link>
 
             <Accordion
@@ -173,7 +173,7 @@ const page = ({ params }) => {
                         <span>
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            enable-background="new 0 0 24 24"
+                            enableBackground="new 0 0 24 24"
                             viewBox="0 0 24 24"
                             id="check-circle"
                             className="w-[1rem] h-[1rem]"
@@ -194,13 +194,13 @@ const page = ({ params }) => {
                           >
                             <g
                               fill="none"
-                              fill-rule="evenodd"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
+                              fillRule="evenodd"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
                             >
                               <g
                                 stroke="#000"
-                                stroke-width="2"
+                                strokeWidth="2"
                                 transform="translate(-919 -1505)"
                               >
                                 <g transform="translate(920 1506)">
@@ -232,13 +232,13 @@ const page = ({ params }) => {
                                   xmlns="http://www.w3.org/2000/svg"
                                   fill="none"
                                   viewBox="0 0 24 24"
-                                  stroke-width="1.5"
+                                  strokeWidth="1.5"
                                   className="w-4 h-4 mt-[0.07rem]"
                                 >
                                   <path
                                     stroke="#30aa5f"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
                                     d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                                   />
                                 </svg>
@@ -253,13 +253,13 @@ const page = ({ params }) => {
                                 >
                                   <g
                                     fill="none"
-                                    fill-rule="evenodd"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
+                                    fillRule="evenodd"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
                                   >
                                     <g
                                       stroke="#000"
-                                      stroke-width="2"
+                                      strokeWidth="2"
                                       transform="translate(-919 -1505)"
                                     >
                                       <g transform="translate(920 1506)">
@@ -295,18 +295,18 @@ const page = ({ params }) => {
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
                                 viewBox="0 0 24 24"
-                                stroke-width="1.5"
+                                strokeWidth="1.5"
                                 stroke="currentColor"
-                                class="w-[1.1rem] h-[1.1rem]"
+                                className="w-[1.1rem] h-[1.1rem]"
                               >
                                 <path
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
                                   d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                                 />
                                 <path
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
                                   d="M15.91 11.672a.375.375 0 0 1 0 .656l-5.603 3.113a.375.375 0 0 1-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112Z"
                                 />
                               </svg>
@@ -326,7 +326,7 @@ const page = ({ params }) => {
         </div>
       </aside>
 
-      <div class="px-4 pt-[4.2rem] pb-[4rem] lg:ml-72 relative">
+      <div className="px-4 pt-[4.2rem] pb-[4rem] lg:ml-72 relative">
         {topic ? (
           <>
             <div className="flex justify-center gap-1 py-4 sm:py-5">
@@ -334,18 +334,18 @@ const page = ({ params }) => {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke-width="1.5"
+                strokeWidth="1.5"
                 stroke="currentColor"
-                class="w-5 h-5 "
+                className="w-5 h-5 "
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                 />
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   d="M15.91 11.672a.375.375 0 0 1 0 .656l-5.603 3.113a.375.375 0 0 1-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112Z"
                 />
               </svg>
@@ -397,13 +397,13 @@ const page = ({ params }) => {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke-width="1.5"
+                strokeWidth="1.5"
                 stroke="currentColor"
-                class="w-5 h-5"
+                className="w-5 h-5"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   d="M15.75 19.5 8.25 12l7.5-7.5"
                 />
               </svg>
@@ -417,13 +417,13 @@ const page = ({ params }) => {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke-width="1.5"
+                strokeWidth="1.5"
                 stroke="currentColor"
-                class="w-5 h-5"
+                className="w-5 h-5"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   d="m8.25 4.5 7.5 7.5-7.5 7.5"
                 />
               </svg>

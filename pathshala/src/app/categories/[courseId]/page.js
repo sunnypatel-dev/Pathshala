@@ -38,17 +38,15 @@ const page = ({ params }) => {
   }, []);
 
   const [formData, setFormData] = useState({
-    //   firstName: "",
-    //   lastName: "",
-    //   email: "",
-    //   password: "",
-    //   phone: "",
-    //   couponCode: "",
-    //   chooseObjective: "",
-    //   chooseBatch: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    phone: "",
+    couponCode: "",
+    chooseObjective: "",
+    chooseBatch: "",
   });
-
-  console.log(formData);
 
   // Handle form input changes
   const handleChange = (e) => {
@@ -167,7 +165,10 @@ const page = ({ params }) => {
       <Aside />
       <Navbar />
       <section className="xl:pt-28 max-w-screen-xl m-auto">
-        <div className="bg-[url('/banner-web.png')] bg-cover bg-no-repeat  xl:rounded-xl px-5 sm:px-6 pt-28 xl:pt-8 pb-8 flex lg:flex-row flex-col lg:justify-between justify-center items-center lg:items-start">
+        <div
+          style={{ backgroundImage: `url('${course?.img2}')` }}
+          className=" bg-cover bg-no-repeat  xl:rounded-xl px-5 sm:px-6 pt-28 xl:pt-8 pb-8 flex lg:flex-row flex-col lg:justify-between justify-center items-center lg:items-start"
+        >
           <div className="flex flex-col gap-5 py-1 lg:gap-7 max-w-screen-md lg:w-auto">
             <div className="bg-[#FFD907] text-[#1b6b52e9] w-fit py-1 px-4 rounded-md font-bold text-[0.85rem] sm:text-[0.96rem] lg:text-lg">
               Government-certified online training

@@ -29,12 +29,12 @@ const Aside = () => {
 
   return (
     <aside
-      class={`fixed top-0 left-0 z-40 w-52 sm:w-64  border h-screen transition-transform ${
+      className={`fixed top-0 left-0 z-40 w-52 sm:w-64  border h-screen transition-transform ${
         openSidebar ? "translate-x-0" : "-translate-x-full"
       }`}
       aria-label="Sidebar"
     >
-      <div class="h-full px-3 py-24 overflow-y-auto  bg-white flex flex-col justify-between">
+      <div className="h-full px-3 py-24 overflow-y-auto  bg-white flex flex-col justify-between">
         <Accordion type="single" collapsible>
           <AccordionItem value="item-1" className="py-2">
             <AccordionTrigger className="text-md">

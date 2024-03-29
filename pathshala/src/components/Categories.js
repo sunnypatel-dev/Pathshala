@@ -137,7 +137,7 @@ const Categories = ({ loadingSkeleton }) => {
                   Know more{" "}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    enable-background="new 0 0 24 24"
+                    enableBackground="new 0 0 24 24"
                     viewBox="0 0 24 24"
                     id="angle-double-right"
                     className="w-7 h-7 -mt-[0.088rem]"

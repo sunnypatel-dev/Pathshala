@@ -34,42 +34,42 @@ const Certificates = () => {
         Certificates
       </h1>
 
-      <div class="relative overflow-x-auto shadow-md  mt-10  z-10">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
-          <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
+      <div className="relative overflow-x-auto shadow-md  mt-10  z-10">
+        <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
             <tr>
-              <th scope="col" class="px-6 py-3">
+              <th scope="col" className="px-6 py-3">
                 Enrolled Courses
               </th>
-              <th scope="col" class="px-6 py-3">
+              <th scope="col" className="px-6 py-3">
                 Category
               </th>
-              <th scope="col" class="px-6 py-3">
+              <th scope="col" className="px-6 py-3">
                 Date of Completion
               </th>
-              <th scope="col" class="px-6 py-3">
+              <th scope="col" className="px-6 py-3">
                 Status
               </th>
-              <th scope="col" class="px-6 py-3">
+              <th scope="col" className="px-6 py-3">
                 View Certificate
               </th>
             </tr>
           </thead>
           <tbody>
             {certificates?.map((item, index) => (
-              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 ">
+              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 ">
                 <th
                   scope="row"
-                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                 >
                   {item.course_name}
                 </th>
-                <td class="px-6 py-4">{item.course_category}</td>
-                <td class="px-6 py-4">
+                <td className="px-6 py-4">{item.course_category}</td>
+                <td className="px-6 py-4">
                   {item.date_of_completion.substring(0, 10)}
                 </td>
-                <td class="px-6 py-4 text-green-500">Completed</td>
-                <td class="px-6 py-4 text-blue-500">
+                <td className="px-6 py-4 text-green-500">Completed</td>
+                <td className="px-6 py-4 text-blue-500">
                   <Link href={item.certificateDownloadUrl}>Link</Link>
                 </td>
               </tr>

@@ -87,10 +87,10 @@ const Testimonials = () => {
                 <img className="w-10" src="/quotes.png.webp" alt="quote" />
                 <p className="text-wrap text-sm lg:text-[1rem] text-[#292929b9] font-medium">
                   I developed an interest in HR Management and came across
-                  Internshala Trainings, the courses were affordable with great
+                  Pathshala Trainings, the courses were affordable with great
                   content. The best part was that they provided me with a lot of
                   practical projects to work on, which landed me my first
-                  internship! I'll be forever grateful to Internshala!
+                  internship! I'll be forever grateful to Pathshala!
                 </p>
                 <span className="flex">
                   <svg
@@ -172,10 +172,10 @@ const Testimonials = () => {
                 <img className="w-10" src="/quotes.png.webp" alt="quote" />
                 <p className="text-wrap text-sm lg:text-[1rem] text-[#292929b9] font-medium">
                   I developed an interest in HR Management and came across
-                  Internshala Trainings, the courses were affordable with great
+                  Pathshala Trainings, the courses were affordable with great
                   content. The best part was that they provided me with a lot of
                   practical projects to work on, which landed me my first
-                  internship! I'll be forever grateful to Internshala!
+                  internship! I'll be forever grateful to Pathshala!
                 </p>
                 <span className="flex">
                   <svg

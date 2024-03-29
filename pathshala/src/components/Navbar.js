@@ -23,13 +23,12 @@ const Navbar = () => {
     } else {
       setPathScreen(false);
     }
-
-    console.log(pathname);
   }, []);
 
   const dispatch = useDispatch();
 
   const { currentUser } = useSelector((state) => state.user);
+  const { courses } = useSelector((state) => state.courses);
 
   const [mouseEnter, setMouseEnter] = useState(false);
   const [searchBtn, setSearchBtn] = useState(false);
@@ -96,18 +95,18 @@ const Navbar = () => {
                   setOpenSidebar(!openSidebar);
                 }}
                 type="button"
-                class="inline-flex lg:hidden items-center text-sm text-gray-500 rounded-lg hover:border px-1 py-1 hover:border-gray-300  outline-none"
+                className="inline-flex lg:hidden items-center text-sm text-gray-500 rounded-lg hover:border px-1 py-1 hover:border-gray-300  outline-none"
               >
                 <svg
-                  class="w-6 h-6"
+                  className="w-6 h-6"
                   aria-hidden="true"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    clip-rule="evenodd"
-                    fill-rule="evenodd"
+                    clipRule="evenodd"
+                    fillRule="evenodd"
                     d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
                   ></path>
                 </svg>
@@ -119,18 +118,18 @@ const Navbar = () => {
                   setOpenSidebar(!openSidebar);
                 }}
                 type="button"
-                class="inline-flex lg:hidden items-center text-sm text-gray-500 rounded-lg hover:border px-1 py-1 hover:border-gray-300  outline-none"
+                className="inline-flex lg:hidden items-center text-sm text-gray-500 rounded-lg hover:border px-1 py-1 hover:border-gray-300  outline-none"
               >
                 <svg
-                  class="w-6 h-6"
+                  className="w-6 h-6"
                   aria-hidden="true"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    clip-rule="evenodd"
-                    fill-rule="evenodd"
+                    clipRule="evenodd"
+                    fillRule="evenodd"
                     d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
                   ></path>
                 </svg>
@@ -194,24 +193,19 @@ const Navbar = () => {
                     <h3 className="text-lg font-semibold px-4 py-2">
                       Most Popular
                     </h3>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
-                    >
-                      Web Development
-                    </a>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
-                    >
-                      Mobile App Development
-                    </a>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
-                    >
-                      Cyber Security Course
-                    </a>
+
+                    {courses
+                      ?.slice()
+                      .reverse()
+                      .map((item, index) => (
+                        <Link
+                          key={index}
+                          href={`/categories/${item.name}/${item._id}`}
+                          className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                        >
+                          {item.name}
+                        </Link>
+                      ))}
                   </div>
                 </div>
               </div>
@@ -233,13 +227,13 @@ const Navbar = () => {
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="currentColor"
-                      class="w-6 h-6 sm:block hidden"
+                      className="w-6 h-6 sm:block hidden"
                     >
                       <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                         d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0"
                       />
                     </svg>
