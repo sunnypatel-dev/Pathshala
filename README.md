@@ -1,6 +1,6 @@
 # Codsoft Web Internship Project
 
-This project was developed as part of the Codsoft Web Development Internship. It consists of two main components: an online learning platform named Pathshal and a Content Management System (CMS) named Blogger.
+This project was developed as part of the Codsoft Web Development Internship.
 
 ## Pathshal - Online Learning Platform
 
