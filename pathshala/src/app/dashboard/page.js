@@ -519,7 +519,7 @@ const page = ({ params }) => {
                           course.percentageCompleted < 100 && (
                             <Link
                               href={`dashboard/screen/${
-                                item.name + "/" + item._id
+                                item.name.replace(/\//g, "-") + "/" + item._id
                               }`}
                               onClick={() => setClickedIndex(item._id)}
                               className="flex items-center justify-center bg-[#EAFCFF] outline-none rounded-2xl px-4 py-[0.5rem] my-2 text-[#1D98E0] font-semibold text-md"

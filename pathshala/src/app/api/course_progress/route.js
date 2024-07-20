@@ -9,7 +9,9 @@ import {
   ref,
   uploadBytes,
   uploadBytesResumable,
-} from "firebase/storage";
+} from "@firebase/storage";
+// fixed the error by adding @
+
 import { app } from "@/firebase";
 
 import { PDFDocument, rgb } from "pdf-lib";
