@@ -62,7 +62,7 @@ const page = ({ params }) => {
     dispatch(loadingState(true));
     try {
       const signUpResponse = await axios.post(
-        "http://localhost:3000/api/signup",
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/signup`,
         formData
       );
 
@@ -70,7 +70,7 @@ const page = ({ params }) => {
         toast.success("Signup Successful!");
 
         const enrollResponse = await axios.post(
-          "http://localhost:3000/api/enroll_course",
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/enroll_course`,
           {
             userId: signUpResponse.data.savedUser._id,
             courseId: params.courseId,
@@ -117,7 +117,7 @@ const page = ({ params }) => {
     dispatch(loadingState(true));
     try {
       const enrollResponse = await axios.post(
-        "http://localhost:3000/api/enroll_course",
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/enroll_course`,
         {
           userId: currentUser._id,
           courseId: params.courseId,

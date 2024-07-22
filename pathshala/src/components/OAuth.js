@@ -27,7 +27,7 @@ const OAuth = () => {
       console.log(result);
 
       const response = await axios.post(
-        "http://localhost:3000/api/signin_google/",
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/signin_google/`,
         {
           name: username,
           email: email,

@@ -48,7 +48,7 @@ const page = ({ params }) => {
 
   const logout = async () => {
     try {
-      await axios.get("http://localhost:3000/api/logout");
+      await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/logout`);
 
       dispatch(logOut());
       router.push("/login");
@@ -64,7 +64,7 @@ const page = ({ params }) => {
   const handleVideoEnd = async (topicId) => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/course_progress/",
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/course_progress/`,
         {
           courseId: params.courseId,
           topicId,

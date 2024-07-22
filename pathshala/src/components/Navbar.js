@@ -33,9 +33,14 @@ const Navbar = () => {
   const [mouseEnter, setMouseEnter] = useState(false);
   const [searchBtn, setSearchBtn] = useState(false);
 
+  const API_BASE = process.env.API_BASE_URI;
+
+  // console.log(API_BASE);
+
   const logout = async () => {
     try {
-      await axios.get("http://localhost:3000/api/logout");
+      console.log("hello");
+      await axios.get(`${API_BASE}logout`);
 
       router.push("/");
       dispatch(logOut());

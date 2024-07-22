@@ -13,7 +13,7 @@ const page = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/verifiy_certificate",
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/verifiy_certificate`,
         { verificationId }
       );
 

@@ -183,7 +183,7 @@ export async function POST(NextRequest) {
         });
 
         page.drawText(
-          `Verifiy here: http://localhost:3000/verifiy_certificate/`,
+          `Verifiy here: ${process.env.NEXT_PUBLIC_API_BASE_URL}/verifiy_certificate/`,
           {
             x: 250,
             y: 96,

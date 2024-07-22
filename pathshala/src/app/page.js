@@ -20,7 +20,7 @@ export default function Home() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3000/api/get_course"
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/get_course/`
         );
 
         dispatch(loadCourses(response.data.courses));

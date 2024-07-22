@@ -12,7 +12,7 @@ const Certificates = () => {
     const handleCertificate = async () => {
       try {
         const response = await axios.post(
-          "http://localhost:3000/api/get_certificate/",
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/get_certificate/`,
           {
             userId: currentUser._id,
           }
