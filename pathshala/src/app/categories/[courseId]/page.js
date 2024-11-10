@@ -1,5 +1,5 @@
 "use client";
-import Navbar from "@/components/Navbar";
+
 import React, { useEffect, useState } from "react";
 
 import {
@@ -163,8 +163,6 @@ const page = ({ params }) => {
 
   return (
     <>
-      {/* <Aside />
-      <Navbar /> */}
       <Header />
       <section className="xl:pt-28 max-w-screen-xl m-auto">
         <div

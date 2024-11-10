@@ -1,7 +1,6 @@
 "use client";
 import Certificates from "@/components/Home/components/Certificates";
-import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
+
 import { logOut } from "@/redux/user/userSlice";
 import axios from "axios";
 import dynamic from "next/dynamic";

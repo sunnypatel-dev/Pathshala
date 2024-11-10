@@ -1,9 +1,6 @@
 "use client";
-import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
 import { logOut, signInSuccess } from "@/redux/user/userSlice";
 import axios from "axios";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
@@ -127,8 +124,6 @@ const page = ({ params }) => {
 
   return (
     <>
-      <Navbar />
-
       <aside
         className={`fixed  top-0 left-0 z-40 w-52 sm:w-72  border-r border-zinc-300 h-screen transition-transform lg:translate-x-0 ${
           openSidebar ? "translate-x-0" : "-translate-x-full"

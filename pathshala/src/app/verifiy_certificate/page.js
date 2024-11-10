@@ -1,6 +1,5 @@
 "use client";
-import Aside from "@/components/Aside";
-import Navbar from "@/components/Navbar";
+import Header from "@/components/Header";
 import axios from "axios";
 import React, { useState } from "react";
 
@@ -31,8 +30,7 @@ const page = () => {
 
   return (
     <>
-      <Aside />
-      <Navbar />
+      <Header />
       <div className="py-28 sm:py-36 sm:px-0 px-5">
         <h1 className="text-xl sm:text-2xl font-semibold text-center">
           Certificate Verification
