@@ -16,10 +16,14 @@ import { app } from "@/firebase";
 
 import { PDFDocument, rgb } from "pdf-lib";
 import fs from "fs";
+import { cors } from "@/lib/cors";
 
 connect();
 
-export async function POST(NextRequest) {
+export async function POST(req, res) {
+  const isCorsHandled = cors(req, res);
+  if (isCorsHandled) return;
+
   try {
     const reqBody = await NextRequest.json();
 

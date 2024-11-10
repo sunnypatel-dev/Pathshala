@@ -1,10 +1,13 @@
 import { connect } from "@/dbConfig/dbConfig";
+import { cors } from "@/lib/cors";
 import Certificate from "@/models/certificateModal";
 import { NextRequest, NextResponse } from "next/server";
 
 connect();
 
-export async function POST(NextRequest) {
+export async function POST(req, res) {
+  const isCorsHandled = cors(req, res);
+  if (isCorsHandled) return;
   try {
     const reqBody = await NextRequest.json();
 
@@ -34,7 +37,3 @@ export async function POST(NextRequest) {
     return NextResponse.json({ message: "Internal Error" });
   }
 }
-
-// if (!course) {
-//   throw new Error("Course not found");
-// }
