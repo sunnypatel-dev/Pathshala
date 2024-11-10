@@ -62,21 +62,15 @@ const page = ({ params }) => {
     e.preventDefault();
     dispatch(loadingState(true));
     try {
-      const signUpResponse = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/signup`,
-        formData
-      );
+      const signUpResponse = await axios.post(`/api/signup`, formData);
 
       if (signUpResponse.data.status === 200) {
         toast.success("Signup Successful!");
 
-        const enrollResponse = await axios.post(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/enroll_course`,
-          {
-            userId: signUpResponse.data.savedUser._id,
-            courseId: params.courseId,
-          }
-        );
+        const enrollResponse = await axios.post(`/api/enroll_course`, {
+          userId: signUpResponse.data.savedUser._id,
+          courseId: params.courseId,
+        });
 
         if (enrollResponse.status === 200) {
           toast.success(`Successfully Enrolled to ${course.name} Course !`);
@@ -117,13 +111,10 @@ const page = ({ params }) => {
     e.preventDefault();
     dispatch(loadingState(true));
     try {
-      const enrollResponse = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/enroll_course`,
-        {
-          userId: currentUser._id,
-          courseId: params.courseId,
-        }
-      );
+      const enrollResponse = await axios.post(`/api/enroll_course`, {
+        userId: currentUser._id,
+        courseId: params.courseId,
+      });
 
       if (enrollResponse.status === 200) {
         toast.success("Successfully Enrolled!");

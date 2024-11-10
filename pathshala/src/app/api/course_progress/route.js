@@ -16,14 +16,10 @@ import { app } from "@/firebase";
 
 import { PDFDocument, rgb } from "pdf-lib";
 import fs from "fs";
-import { cors } from "@/lib/cors";
 
 connect();
 
-export async function POST(req, res) {
-  const isCorsHandled = cors(req, res);
-  if (isCorsHandled) return;
-
+export async function POST(NextRequest) {
   try {
     const reqBody = await NextRequest.json();
 
@@ -187,7 +183,7 @@ export async function POST(req, res) {
         });
 
         page.drawText(
-          `Verifiy here: ${process.env.NEXT_PUBLIC_API_BASE_URL}/verifiy_certificate/`,
+          `Verifiy here: ${process.env.NEXT_PUBLIC_API_BASE_URL}/api/verifiy_certificate/`,
           {
             x: 250,
             y: 96,

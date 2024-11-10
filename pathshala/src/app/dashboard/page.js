@@ -1,5 +1,5 @@
 "use client";
-import Certificates from "@/components/Home/components/Certificates";
+import Certificates from "@/components/Certificates";
 
 import { logOut } from "@/redux/user/userSlice";
 import axios from "axios";
@@ -49,7 +49,7 @@ const page = ({ params }) => {
 
   const logout = async () => {
     try {
-      await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/logout`);
+      await axios.get(`/api/logout`);
 
       dispatch(logOut());
       router.push("/login");
@@ -339,9 +339,9 @@ const page = ({ params }) => {
             >
               <div className=" space-y-2 py-3  text-sm/6 ">
                 <div className="px-3">
-                  <h3 className="font-semibold">Sunny Patel</h3>
+                  <h3 className="font-semibold">{currentUser?.name}</h3>
                   <p className=" font-light text-gray-600">
-                    sunnypatel.koder@gmail.com
+                    {currentUser?.email}
                   </p>
                 </div>
                 <hr />
@@ -499,7 +499,7 @@ const page = ({ params }) => {
             </div>
             {/* // courses subscribed  */}
             <div className="flex gap-10 flex-wrap ">
-              {filteredCourses.map((item, index) => (
+              {filteredCourses?.map((item, index) => (
                 <div className="bg-white rounded-xl overflow-hidden border">
                   <img
                     className="w-[300px] h-[130px] object-cover"

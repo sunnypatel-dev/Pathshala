@@ -11,10 +11,9 @@ const page = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/verifiy_certificate`,
-        { verificationId }
-      );
+      const response = await axios.post(`/api/verifiy_certificate`, {
+        verificationId,
+      });
 
       if (response.data.status == 403) {
         setErr(true);

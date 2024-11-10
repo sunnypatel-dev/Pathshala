@@ -45,7 +45,7 @@ const page = ({ params }) => {
 
   const logout = async () => {
     try {
-      await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/logout`);
+      await axios.get(`/api/logout`);
 
       dispatch(logOut());
       router.push("/login");
@@ -60,14 +60,11 @@ const page = ({ params }) => {
 
   const handleVideoEnd = async (topicId) => {
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/course_progress/`,
-        {
-          courseId: params.courseId,
-          topicId,
-          userId: currentUser._id,
-        }
-      );
+      const response = await axios.post(`/api/course_progress/`, {
+        courseId: params.courseId,
+        topicId,
+        userId: currentUser._id,
+      });
       dispatch(signInSuccess(response.data.user));
 
       // Stop duplication of certificate here

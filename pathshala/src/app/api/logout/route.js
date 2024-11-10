@@ -1,9 +1,6 @@
-import { cors } from "@/lib/cors";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req, res) {
-  const isCorsHandled = cors(req, res);
-  if (isCorsHandled) return;
+export async function GET(NextRequest) {
   try {
     console.log("logout");
 

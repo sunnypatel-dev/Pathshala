@@ -12,9 +12,7 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/get_course/`
-        );
+        const response = await axios.get(`/api/get_course/`);
 
         dispatch(loadCourses(response.data.courses));
       } catch (err) {

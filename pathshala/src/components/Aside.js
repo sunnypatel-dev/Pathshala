@@ -18,7 +18,7 @@ const Aside = () => {
   const router = useRouter();
   const logout = async () => {
     try {
-      await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/logout`);
+      await axios.get(`/api/logout`);
 
       dispatch(logOut());
       router.push("/");

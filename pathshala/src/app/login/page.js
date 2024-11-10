@@ -41,10 +41,7 @@ const page = () => {
       try {
         dispatch(signInStart());
 
-        const response = await axios.post(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/login`,
-          formData
-        );
+        const response = await axios.post(`/api/login`, formData);
 
         if (response.data.status == 404) {
           toast.error("User Not Found!");

@@ -26,14 +26,11 @@ const OAuth = () => {
 
       console.log(result);
 
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/signin_google/`,
-        {
-          name: username,
-          email: email,
-          photoUrl: photoURL,
-        }
-      );
+      const response = await axios.post(`/api/signin_google/`, {
+        name: username,
+        email: email,
+        photoUrl: photoURL,
+      });
 
       if (response.statusText == "OK") {
         dispatch(signInSuccess(response.data.user));

@@ -1,5 +1,4 @@
 import { connect } from "@/dbConfig/dbConfig";
-import { cors } from "@/lib/cors";
 import Certificate from "@/models/certificateModal";
 import Course from "@/models/courseModel";
 import User from "@/models/userModel";
@@ -7,9 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 connect();
 
-export async function POST(req, res) {
-  const isCorsHandled = cors(req, res);
-  if (isCorsHandled) return;
+export async function POST(NextRequest) {
   try {
     const reqBody = await NextRequest.json();
 

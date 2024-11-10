@@ -11,12 +11,9 @@ const Certificates = () => {
   useEffect(() => {
     const handleCertificate = async () => {
       try {
-        const response = await axios.post(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/get_certificate/`,
-          {
-            userId: currentUser._id,
-          }
-        );
+        const response = await axios.post(`/api/get_certificate/`, {
+          userId: currentUser._id,
+        });
         setCertificates(response.data.certificates);
       } catch (err) {
         console.log(err);
@@ -24,7 +21,7 @@ const Certificates = () => {
     };
 
     handleCertificate();
-  }, [currentUser._id]);
+  }, [currentUser?._id]);
 
   console.log("here", certificates);
 

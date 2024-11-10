@@ -36,7 +36,7 @@ const Header = () => {
   // Logout
   const logout = async () => {
     try {
-      await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/logout`);
+      await axios.get(`/api/logout`);
 
       router.push("/");
       dispatch(logOut());

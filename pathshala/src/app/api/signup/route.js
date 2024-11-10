@@ -2,14 +2,11 @@ import { connect } from "@/dbConfig/dbConfig";
 import User from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
-import { cors } from "@/lib/cors";
 // import { sendEmail } from "@/helpers/mailer";
 
 connect();
 
-export async function POST(req, res) {
-  const isCorsHandled = cors(req, res);
-  if (isCorsHandled) return;
+export async function POST(NextRequest) {
   try {
     const reqBody = await NextRequest.json();
 
