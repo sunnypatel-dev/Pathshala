@@ -1,7 +1,5 @@
 import { connect } from "@/dbConfig/dbConfig";
 import Certificate from "@/models/certificateModal";
-import Course from "@/models/courseModel";
-import User from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 
 connect();
