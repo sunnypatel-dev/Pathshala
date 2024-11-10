@@ -80,7 +80,7 @@ const Testimonials = () => {
         <p className="text-[#343434d3] font-medium pt-4 pb-7 sm:px-2">
           Let our success stories do the talking
         </p>
-        <Carousel className="relative inset-0 after:absolute after:inline-block after:content-'' after:w-0 sm:after:w-28 lg:after:w-72 after:z-30 after:h-full  after:bg-gradient-to-l after:from-[#ffffff] after:to-transparent flex flex-row-reverse">
+        <Carousel className="relative inset-0 after:absolute after:inline-block after:content-'' after:w-0 sm:after:w-28 lg:after:w-72 after:z-5 after:h-full  after:bg-gradient-to-l after:from-[#ffffff] after:to-transparent flex flex-row-reverse">
           <CarouselContent className="px-5 flex gap-6 ">
             <CarouselItem className="flex sm:flex-row flex-col-reverse gap-10 rounded-xl items-center bg-white py-8 pr-5  max-w-screen-lg">
               <div className="flex flex-col gap-2">

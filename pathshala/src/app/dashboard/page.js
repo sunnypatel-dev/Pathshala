@@ -1,5 +1,5 @@
 "use client";
-import Certificates from "@/components/Certificates";
+import Certificates from "@/components/Home/components/Certificates";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { logOut } from "@/redux/user/userSlice";
@@ -9,8 +9,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
+import { ArrowLeftIcon, DashboardIcon } from "@radix-ui/react-icons";
 
 const page = ({ params }) => {
   const { currentUser } = useSelector((state) => state.user);
@@ -243,7 +244,7 @@ const page = ({ params }) => {
                 />
               </svg>
 
-              <span className=" text-[1rem]">Log Out</span>
+              <span className=" text-[1rem]">Sign out</span>
             </li>
           </ul>
         </div>
@@ -278,7 +279,7 @@ const page = ({ params }) => {
             />
           </div>
 
-          <div className="relative group sm:block hidden">
+          {/* <div className="relative group sm:block hidden">
             <div className="flex items-center gap-2 cursor-pointer">
               <img
                 className={`w-8 h-8 rounded-full`}
@@ -322,7 +323,89 @@ const page = ({ params }) => {
                 </button>
               </div>
             </div>
-          </div>
+          </div> */}
+          <Popover className="relative group sm:block hidden z-20">
+            <PopoverButton className="flex flex-row items-center">
+              <img
+                className={`w-8 h-8 rounded-full`}
+                height="100"
+                width="100"
+                src={currentUser?.photoUrl}
+                alt="profile"
+              />
+            </PopoverButton>
+            <PopoverPanel
+              transition
+              className="absolute right-0 top-full z-10 mt-3 w-60 overflow-hidden rounded-xl bg-white shadow-lg ring-1 ring-gray-900/5 transition data-[closed]:translate-y-1 data-[closed]:opacity-0 data-[enter]:duration-200 data-[leave]:duration-150 data-[enter]:ease-out data-[leave]:ease-in"
+            >
+              <div className=" space-y-2 py-3  text-sm/6 ">
+                <div className="px-3">
+                  <h3 className="font-semibold">Sunny Patel</h3>
+                  <p className=" font-light text-gray-600">
+                    sunnypatel.koder@gmail.com
+                  </p>
+                </div>
+                <hr />
+                <div className="flex flex-col gap-1 px-3  font-light text-gray-600  ">
+                  <Link
+                    href="/"
+                    className="flex items-center gap-2 cursor-pointer hover:text-[#0ca4e8]"
+                  >
+                    <svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 15 15"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M7.07926 0.222253C7.31275 -0.007434 7.6873 -0.007434 7.92079 0.222253L14.6708 6.86227C14.907 7.09465 14.9101 7.47453 14.6778 7.71076C14.4454 7.947 14.0655 7.95012 13.8293 7.71773L13 6.90201V12.5C13 12.7761 12.7762 13 12.5 13H2.50002C2.22388 13 2.00002 12.7761 2.00002 12.5V6.90201L1.17079 7.71773C0.934558 7.95012 0.554672 7.947 0.32229 7.71076C0.0899079 7.47453 0.0930283 7.09465 0.32926 6.86227L7.07926 0.222253ZM7.50002 1.49163L12 5.91831V12H10V8.49999C10 8.22385 9.77617 7.99999 9.50002 7.99999H6.50002C6.22388 7.99999 6.00002 8.22385 6.00002 8.49999V12H3.00002V5.91831L7.50002 1.49163ZM7.00002 12H9.00002V8.99999H7.00002V12Z"
+                        fill="currentColor"
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                      ></path>
+                    </svg>
+                    Home{" "}
+                  </Link>
+                  <Link
+                    href="/dashboard"
+                    className="flex items-center gap-2 cursor-pointer hover:text-[#0ca4e8]"
+                  >
+                    {" "}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="size-4"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z"
+                      />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                      />
+                    </svg>
+                    Settings
+                  </Link>
+
+                  <div
+                    onClick={logout}
+                    className="flex items-center gap-2 cursor-pointer hover:text-[#0ca4e8]"
+                  >
+                    <ArrowLeftIcon />
+                    Sign out
+                  </div>
+                </div>
+              </div>
+            </PopoverPanel>
+          </Popover>
+
           <button
             onClick={handleSidebar}
             type="button"

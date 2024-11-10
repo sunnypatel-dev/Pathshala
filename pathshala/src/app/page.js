@@ -1,13 +1,6 @@
 "use client";
-import Advantage from "@/components/Advantage";
-import Aside from "@/components/Aside";
-import Banner from "@/components/Banner";
-import Categories from "@/components/Categories";
-import Educators from "@/components/Educators";
-import Footer from "@/components/Footer";
-import Hero from "@/components/Hero";
-import Navbar from "@/components/Navbar";
-import Testimonials from "@/components/Testimonials";
+
+import HomePage from "@/components/Home/HomePage";
 import { loadCourses } from "@/redux/course/courseSlice";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -34,15 +27,8 @@ export default function Home() {
 
   return (
     <>
-      <Aside />
-      <Navbar />
-      <Hero />
-      <Banner />
-      <Categories />
-      <Testimonials />
-      <Advantage />
-      <Educators />
-      <Footer />
+      {" "}
+      <HomePage />
     </>
   );
 }

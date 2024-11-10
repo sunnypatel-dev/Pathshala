@@ -16,7 +16,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className="bg-[#EEFBFF] px-5 xl:px-0 pt-36 sm:pt-48 lg:pb-0 pb-10">
+    <div className="bg-[#EEFBFF] px-5 xl:px-0 pt-36 md:pt-48 lg:pb-0 pb-10">
       <section className="max-w-screen-xl m-auto">
         <div className="text-center">
           <div className="text-[2.6rem] sm:text-[3rem] font-bold">

@@ -19,6 +19,7 @@ import { loadingState, signInSuccess } from "@/redux/user/userSlice";
 import { useDispatch } from "react-redux";
 import OAuth from "@/components/OAuth";
 import Aside from "@/components/Aside";
+import Header from "@/components/Header";
 
 const page = ({ params }) => {
   const router = useRouter();
@@ -162,8 +163,9 @@ const page = ({ params }) => {
 
   return (
     <>
-      <Aside />
-      <Navbar />
+      {/* <Aside />
+      <Navbar /> */}
+      <Header />
       <section className="xl:pt-28 max-w-screen-xl m-auto">
         <div
           style={{ backgroundImage: `url('${course?.img2}')` }}

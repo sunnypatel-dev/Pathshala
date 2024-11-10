@@ -1,4 +1,5 @@
 "use client";
+import Header from "@/components/Header";
 import Navbar from "@/components/Navbar";
 import OAuth from "@/components/OAuth";
 import {
@@ -73,7 +74,7 @@ const page = () => {
 
   return (
     <>
-      <Navbar />
+      <Header />
       <section className="py-20 lg:py-28 grid place-content-center px-5">
         <div className="bg-white max-w-[370px] mt-10 lg:mt-0 h-fit p-5 rounded-lg border">
           <h2 className="text-lg font-semibold pb-3">Login to your account</h2>
