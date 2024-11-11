@@ -46,7 +46,7 @@ const Header = () => {
     }
   };
   return (
-    <header className="bg-white shadow-[0px_0.4px_8px_0px_#00000024] fixed w-full z-10">
+    <header className="bg-white shadow-[0px_0.4px_8px_0px_#00000024] fixed w-full z-20">
       <nav
         aria-label="Global"
         className="mx-auto flex max-w-7xl items-center justify-between px-6 py-2 lg:px-8"
@@ -303,7 +303,7 @@ const Header = () => {
               />
             </DisclosureButton>
             <DisclosurePanel className="px-5">
-              {[...courses].map((item) => (
+              {courses?.map((item) => (
                 <DisclosureButton
                   key={item.name}
                   as="a"

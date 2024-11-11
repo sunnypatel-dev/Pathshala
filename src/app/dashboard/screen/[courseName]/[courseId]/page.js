@@ -17,6 +17,7 @@ import {
 import dynamic from "next/dynamic";
 import { useSelector } from "react-redux";
 import { quiz } from "./quiz";
+import Header from "@/components/Header";
 
 const page = ({ params }) => {
   const dispatch = useDispatch();
@@ -121,8 +122,10 @@ const page = ({ params }) => {
 
   return (
     <>
+      <Header />
+
       <aside
-        className={`fixed  top-0 left-0 z-40 w-52 sm:w-72  border-r border-zinc-300 h-screen transition-transform lg:translate-x-0 ${
+        className={`fixed  top-0 left-0 z-10 w-52 sm:w-72  border-r border-zinc-300 h-screen transition-transform lg:translate-x-0 ${
           openSidebar ? "translate-x-0" : "-translate-x-full"
         }`}
         aria-label="Sidebar"

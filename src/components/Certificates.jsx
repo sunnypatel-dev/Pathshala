@@ -54,7 +54,7 @@ const Certificates = () => {
           </thead>
           <tbody>
             {certificates?.map((item, index) => (
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 ">
+              <tr className="bg-white border-b  hover:bg-gray-50 ">
                 <th
                   scope="row"
                   className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"

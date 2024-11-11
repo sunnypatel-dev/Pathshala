@@ -650,7 +650,7 @@ const page = ({ params }) => {
           Recommended Courses
         </h1>
         <div className="flex gap-10 flex-wrap py-10">
-          {courses.map((item) => (
+          {courses?.map((item) => (
             <Link key={item._id} href={`/categories/${item._id}`}>
               <div className="bg-white rounded-xl overflow-hidden transition-all duration-100 border">
                 <img
